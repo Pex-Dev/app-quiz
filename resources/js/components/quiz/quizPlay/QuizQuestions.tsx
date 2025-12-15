@@ -6,7 +6,7 @@ import ButtonContinueQuiz from "./ButtonContinueQuiz";
 import { Question } from "@/types/quiz";
 import ButtonResetQuiz from "./ButtonResetQuiz";
 
-export default function QuizBoardQuestions() {
+export default function QuizQuestions() {
     const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
     const buttonCheckRef = useRef<HTMLButtonElement>(null);
 

@@ -1,5 +1,5 @@
 import { useQuizPlay } from "@/context/QuizPlayContext";
-import QuizBoardQuestions from "./QuizBoardQuestions";
+import QuizQuestions from "./QuizQuestions";
 import QuizResults from "./QuizResults";
 import QuizCreator from "../QuizCreator";
 import backgroundsImages from "@/utilities/BackgroundCategories";
@@ -89,7 +89,7 @@ export default function QuizBoard() {
                     </div>
                 </>
             )}
-            {quizState === "playing" && <QuizBoardQuestions />}
+            {quizState === "playing" && <QuizQuestions />}
             {quizState === "results" && <QuizResults />}
         </div>
     );
