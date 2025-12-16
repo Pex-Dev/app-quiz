@@ -38,7 +38,7 @@ export default function QuizQuestions() {
                               .question_text}
                 </h3>
             </header>
-            <div className="rounded-3xl flex flex-col justify-between h-fit md:h-auto min-h-[300px] px-3 pb-3 md:px-4 mt-6 p-3 md:p-4 bg-neutral-100 border-t-5 border-t-neutral-200 m-3 md:m-4">
+            <div className="rounded-3xl flex flex-col justify-between h-fit md:h-auto px-3 pb-3 md:px-4 mt-6 p-3 md:p-4 bg-neutral-100 border-t-5 border-t-neutral-200 m-3 md:m-4">
                 {/* Lista de respuestas */}
                 <ul className="flex flex-col gap-3 font-nunito">
                     {orderedQuestions()[
