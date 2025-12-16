@@ -43,6 +43,7 @@ const QuizPlayProvider = ({
     //Sonidos
     const soundCorrect = new Audio("/sounds/correct_answer.mp3");
     const soundIncorrect = new Audio("/sounds/incorrect_answer.mp3");
+    const soundComplete = new Audio("/sounds/quiz_completed.mp3");
 
     const nextQuestion = () => {
         if (!quiz.questions) return;
@@ -51,6 +52,7 @@ const QuizPlayProvider = ({
         if (currentQuestionNumber >= quiz.questions.length) {
             setTimeout(() => {
                 setQuizState("results");
+                soundComplete.play();
             }, 1000);
             return;
         }
