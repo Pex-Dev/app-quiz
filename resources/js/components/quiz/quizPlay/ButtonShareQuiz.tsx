@@ -1,10 +1,14 @@
+import notify from "@/utilities/SimpleNotify";
+
 export default function ButtonShareQuiz() {
     const copyToClipBoard = async () => {
         await navigator.clipboard.writeText(document.URL);
+        notify("Listo", "Enlace copiado al portapapeles");
     };
 
     return (
         <button
+            type="button"
             onClick={() => copyToClipBoard()}
             className="mx-auto bg-neutral-500 rounded-r-full py-2 px-5 flex gap-2 items-center font-semibold
                          border-b-4 md:border-b-5 border-b-neutral-700 text-white transition-colors hover:bg-neutral-400 hover:border-b-neutral-600 hover:cursor-pointer"
