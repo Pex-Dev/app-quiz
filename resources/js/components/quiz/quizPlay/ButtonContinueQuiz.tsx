@@ -3,14 +3,23 @@ import { useQuizPlay } from "@/context/QuizPlayContext";
 
 export default function ButtonContinueQuiz({
     setShowCorrectAnswer,
+    exitAnimation,
 }: {
     setShowCorrectAnswer: (value: SetStateAction<boolean>) => void;
+    exitAnimation: () => void;
 }) {
-    const { nextQuestion, setSelectedAnswer } = useQuizPlay();
+    const { nextQuestion, setSelectedAnswer, currentQuestionNumber, quiz } =
+        useQuizPlay();
 
     return (
         <button
             onClick={() => {
+                if (!quiz.questions) return;
+                if (currentQuestionNumber >= quiz.questions.length) {
+                    setTimeout(() => {
+                        exitAnimation();
+                    }, 700);
+                }
                 nextQuestion();
                 setShowCorrectAnswer(false);
                 setSelectedAnswer(null);

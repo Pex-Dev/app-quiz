@@ -1,9 +1,19 @@
 import { useQuizPlay } from "@/context/QuizPlayContext";
 import QuizCreator from "../QuizCreator";
 import ButtonShareQuiz from "./ButtonShareQuiz";
+import { useEffect, useRef } from "react";
 
 export default function QuizResults() {
     const { quiz, score, reset } = useQuizPlay();
+
+    const quizResultsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (quizResultsRef.current) {
+            quizResultsRef.current.classList.remove("opacity-0");
+            quizResultsRef.current.classList.add("opacity-100");
+        }
+    }, [quizResultsRef]);
 
     const scoreResult = () => {
         if (!quiz.questions) return;
@@ -62,7 +72,10 @@ export default function QuizResults() {
     };
 
     return (
-        <div className="mb-3 md:mb-6">
+        <div
+            ref={quizResultsRef}
+            className="mb-3 md:mb-6 transition-opacity duration-500 opacity-0"
+        >
             <QuizCreator quiz={quiz} />
             <h2 className="text-white font-roboto text-shadow-lg uppercase font-semibold text-shadow-green-900 text-2xl md:text-4xl text-center mt-5">
                 ¡Quiz completado!
