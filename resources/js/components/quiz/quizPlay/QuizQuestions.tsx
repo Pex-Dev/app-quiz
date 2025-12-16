@@ -1,7 +1,7 @@
 import { useQuizPlay } from "@/context/QuizPlayContext";
 import ProgressBar from "./QuizProgress";
 import AnswerOption from "./AnswerOption";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonContinueQuiz from "./ButtonContinueQuiz";
 import { Question } from "@/types/quiz";
 import ButtonResetQuiz from "./ButtonResetQuiz";
@@ -9,6 +9,7 @@ import ButtonResetQuiz from "./ButtonResetQuiz";
 export default function QuizQuestions() {
     const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
     const buttonCheckRef = useRef<HTMLButtonElement>(null);
+    const quizQuestionsRef = useRef<HTMLDivElement>(null);
 
     const { quiz, currentQuestionNumber, selectedAnswer, playSound, setScore } =
         useQuizPlay();
@@ -18,10 +19,26 @@ export default function QuizQuestions() {
         return quiz.questions.sort((a, b) => a.order - b.order);
     };
 
+    useEffect(() => {
+        if (quizQuestionsRef.current) {
+            quizQuestionsRef.current.classList.remove("opacity-0");
+            quizQuestionsRef.current.classList.add("opacity-100");
+        }
+    }, [quizQuestionsRef]);
+
+    const exitAnimation = () => {
+        if (!quizQuestionsRef.current) return;
+        quizQuestionsRef.current.classList.remove("opacity-100");
+        quizQuestionsRef.current.classList.add("opacity-0");
+    };
+
     if (!quiz.questions) return null;
 
     return (
-        <>
+        <div
+            ref={quizQuestionsRef}
+            className="transition-opacity duration-500 opacity-0"
+        >
             <header className="px-3 md:px-4 w-full">
                 <div className="flex w-full gap-3 items-center">
                     <ProgressBar
@@ -38,7 +55,7 @@ export default function QuizQuestions() {
                               .question_text}
                 </h3>
             </header>
-            <div className="rounded-3xl flex flex-col justify-between h-fit md:h-auto min-h-[300px] px-3 pb-3 md:px-4 mt-6 p-3 md:p-4 bg-neutral-100 border-t-5 border-t-neutral-200 m-3 md:m-4">
+            <div className="rounded-3xl flex flex-col justify-between h-fit md:h-auto px-3 pb-3 md:px-4 mt-6 p-3 md:p-4 bg-neutral-100 border-t-5 border-t-neutral-200 m-3 md:m-4">
                 {/* Lista de respuestas */}
                 <ul className="flex flex-col gap-3 font-nunito">
                     {orderedQuestions()[
@@ -60,6 +77,7 @@ export default function QuizQuestions() {
                 {showCorrectAnswer ? (
                     <ButtonContinueQuiz
                         setShowCorrectAnswer={setShowCorrectAnswer}
+                        exitAnimation={exitAnimation}
                     />
                 ) : (
                     <button
@@ -96,6 +114,6 @@ export default function QuizQuestions() {
                     </button>
                 )}
             </div>
-        </>
+        </div>
     );
 }
