@@ -24,6 +24,7 @@ export type Quiz = {
     user?: User;
     image?: string;
     questions_count?: number | null;
+    completed?: number;
 };
 
 export type User = {
