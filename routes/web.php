@@ -13,10 +13,18 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-        $quizzes = Quiz::withCount("Questions")->get();
-    return Inertia::render('index',[
-        "quizzes" => $quizzes
-    ]);
+        $user = auth() -> user();
+        
+        $query = Quiz::withCount("Questions");
+        if($user){
+                $query ->withExists(['Completers as completed'=> fn($q) => $q -> where('user_id',$user['id'])]);
+        }
+
+        $quizzes = $query -> get();
+ 
+        return Inertia::render('index',[
+                "quizzes" => $quizzes
+        ]);
 });
 
 
