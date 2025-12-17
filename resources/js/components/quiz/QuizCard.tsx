@@ -4,6 +4,40 @@ import { route } from "ziggy-js";
 import backgroundsImages from "@/utilities/BackgroundCategories";
 
 export default function QuizCard({ quiz }: { quiz: Quiz }) {
+    const checkIcon = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M5 12l5 5l10 -10" />
+        </svg>
+    );
+
+    const arrowIcon = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M5 12l14 0" />
+            <path d="M15 16l4 -4" />
+            <path d="M15 8l4 4" />
+        </svg>
+    );
+
     return (
         <div className="min-w-56 bg-white border-b-5 border-b-neutral-500 rounded-3xl shadow-lg overflow-hidden">
             <header
@@ -33,24 +67,14 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
             <div className="p-3 flex justify-between items-end">
                 <Link
                     href={route("quiz", quiz.id)}
-                    className="w-fit flex items-center gap-3 bg-blue-600 border-b-4 border-b-blue-800 text-white rounded-full py-1 px-3 transition-colors hover:bg-blue-500 hover:cursor-pointer"
+                    className={`w-fit flex items-center gap-3  border-b-4 text-white rounded-full py-1 px-3 transition-colors hover:cursor-pointer ${
+                        quiz.completed
+                            ? "bg-green-600 border-b-green-800 hover:bg-green-500"
+                            : "bg-blue-600 border-b-blue-800 hover:bg-blue-500"
+                    }`}
                 >
-                    Comenzar
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#ffffff"
-                        strokeWidth="2.25"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="M5 12l14 0" />
-                        <path d="M15 16l4 -4" />
-                        <path d="M15 8l4 4" />
-                    </svg>
+                    <span>{quiz.completed ? "Completado" : "comenzar"}</span>
+                    {quiz.completed ? checkIcon : arrowIcon}
                 </Link>
                 <div
                     title={`Este quiz tiene ${quiz.questions_count} preguntas`}
