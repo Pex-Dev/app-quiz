@@ -2,13 +2,27 @@ import { useQuizPlay } from "@/context/QuizPlayContext";
 import QuizCreator from "../QuizCreator";
 import ButtonShareQuiz from "./ButtonShareQuiz";
 import { useEffect, useRef } from "react";
+import { router, usePage } from "@inertiajs/react";
+import { route } from "ziggy-js";
 
 export default function QuizResults() {
     const { quiz, score, reset } = useQuizPlay();
+    const { auth } = usePage().props;
 
     const quizResultsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        //Si el usuario esta autenticado marcar quiz como completado
+        if (auth && auth.user) {
+            router.post(
+                route("quiz.completed", quiz.id),
+                {},
+                {
+                    showProgress: false,
+                }
+            );
+        }
+
         if (quizResultsRef.current) {
             quizResultsRef.current.classList.remove("opacity-0");
             quizResultsRef.current.classList.add("opacity-100");
