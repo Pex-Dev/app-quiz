@@ -26,4 +26,8 @@ class Quiz extends Model
     public function Category(){
         return $this->belongsTo(Category::class) -> select(["id","name","description"]);
     }
+
+    public function Completers(){
+        return $this->belongsToMany(User::class, 'users_completed_quizzes', 'quiz_id', 'user_id')->withTimestamps();
+    }
 }
