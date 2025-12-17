@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\CompletedQuizzes;
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizQuestion;
@@ -371,5 +372,18 @@ class QuizController extends Controller
             "message" => "Imagen guardada",
             "image_name" => $fileName
         ];
+    }
+
+    public function setCompleted(Quiz $quiz){
+        $user = auth()->user();
+
+        //Ver si esta completado
+        $completed = $user -> CompletedQuizzes() -> where('quiz_id',$quiz['id'])->exists();
+        if($completed)return;
+
+        CompletedQuizzes::create([
+            'user_id' => $user['id'],
+            'quiz_id' =>  $quiz['id']
+        ]);
     }
 }

@@ -59,3 +59,4 @@ Route::get('/quiz/{quiz}',[QuizController::class,'show']) -> name('quiz');
 Route::post('/quiz',[QuizController::class,'store'])-> name('quiz.store') -> middleware(['auth','verified']);
 Route::get('/quiz/{quiz}/edit',[QuizController::class,'edit']) -> name('quiz.edit') -> middleware(['auth','verified']);
 Route::post('/quiz/{quiz}',[QuizController::class,'update']) -> name('quiz.update') -> middleware(['auth','verified']);
+Route::post('/quiz/{quiz}/set-complete',[QuizController::class,'setCompleted']) -> name('quiz.completed') -> middleware(['auth','verified']);
