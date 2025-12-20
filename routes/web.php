@@ -5,6 +5,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SearchController;
 use App\Models\Quiz;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
@@ -68,3 +69,6 @@ Route::post('/quiz',[QuizController::class,'store'])-> name('quiz.store') -> mid
 Route::get('/quiz/{quiz}/edit',[QuizController::class,'edit']) -> name('quiz.edit') -> middleware(['auth','verified']);
 Route::post('/quiz/{quiz}',[QuizController::class,'update']) -> name('quiz.update') -> middleware(['auth','verified']);
 Route::post('/quiz/{quiz}/set-complete',[QuizController::class,'setCompleted']) -> name('quiz.completed') -> middleware(['auth','verified']);
+
+//Search
+Route::get('/search/{search}',[SearchController::class,'dynamicTextSearch'])->name('search.dynamic');
