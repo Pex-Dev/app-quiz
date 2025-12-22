@@ -71,4 +71,4 @@ Route::post('/quiz/{quiz}',[QuizController::class,'update']) -> name('quiz.updat
 Route::post('/quiz/{quiz}/set-complete',[QuizController::class,'setCompleted']) -> name('quiz.completed') -> middleware(['auth','verified']);
 
 //Search
-Route::get('/search/{search}',[SearchController::class,'dynamicTextSearch'])->name('search.dynamic');
+Route::get('/search/dynamic/{search}',[SearchController::class,'dynamicTextSearch'])->name('search.dynamic');
