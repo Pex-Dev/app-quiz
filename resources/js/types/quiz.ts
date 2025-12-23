@@ -34,3 +34,26 @@ export type User = {
     email?: string;
     created_at?: string;
 };
+
+export interface Link {
+    url: null | string;
+    label: string;
+    page: number | null;
+    active: boolean;
+}
+
+export interface Results {
+    current_page: number;
+    data: Quiz[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: Link[];
+    next_page_url: null;
+    path: string;
+    per_page: number;
+    prev_page_url: null;
+    to: number;
+    total: number;
+}

@@ -1,7 +1,7 @@
-import { Form } from "@inertiajs/react";
 import React, { useEffect, useId, useRef, useState } from "react";
 import useSearch from "@/hooks/useSearch";
 import SearchResults from "./SearchResults";
+import { route } from "ziggy-js";
 
 export default function SearchBar({ tabIndex = 0 }: { tabIndex?: number }) {
     const searchId = useId();
@@ -37,7 +37,15 @@ export default function SearchBar({ tabIndex = 0 }: { tabIndex?: number }) {
 
     return (
         <div ref={contRef} className="w-full md:max-w-[500px] lg:max-w-[600px]">
-            <Form className="w-full flex ">
+            <form
+                action={route("search.index", searchText)}
+                onSubmit={(e) => {
+                    if (searchText.length < 3) {
+                        e.preventDefault();
+                    }
+                }}
+                className="w-full flex"
+            >
                 <input
                     type="search"
                     name="search_text"
@@ -71,7 +79,7 @@ export default function SearchBar({ tabIndex = 0 }: { tabIndex?: number }) {
                         <path d="M21 21l-6 -6" />
                     </svg>
                 </button>
-            </Form>
+            </form>
             {results && !loading && (
                 <div className="relative w-full">
                     <SearchResults results={results} setText={setSearchText} />
