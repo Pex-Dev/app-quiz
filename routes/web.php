@@ -1,38 +1,17 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
-use App\Models\Quiz;
-use App\Models\User;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 
-Route::get('/', function () {
-        $user = auth() -> user();
-        
-        $query = Quiz::withCount("Questions");
-        if($user){
-                $query ->withExists(['Completers as completed'=> fn($q) => $q -> where('user_id',$user['id'])]);
-        }
-
-        $quizzes = $query -> get();
- 
-        return Inertia::render('index',[
-                "quizzes" => $quizzes
-        ]);
-});
-
-
-
+Route::get('/', [IndexController::class,'index']);
 
 //Auth
-
 Route::get('/login',[AuthController::class,'index']) -> name('login');
 Route::post('/login',[AuthController::class,'store']);
 Route::post('/logout',[AuthController::class,'destroy']) -> middleware('auth') -> name('logout');
