@@ -52,6 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function CompletedQuizzes(){
-        return $this->belongsToMany(Quiz::class, 'users_completed_quizzes', 'user_id','quiz_id')->withTimestamps();;
+        return $this->belongsToMany(Quiz::class, 'users_completed_quizzes', 'user_id','quiz_id')->withTimestamps();
+    }
+
+    public function LikedQuizzes(){
+        return $this->belongsToMany(Quiz::class,'quizzes_likes','user_id','quiz_id')->withTimestamps();
     }
 }
