@@ -5,6 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -18,11 +20,15 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-            $exceptions->render(function (ThrottleRequestsException $e, $request) {
-        if ($request->inertia()) {
-            return back()->withErrors([
-                'throttle' => 'Estás enviando demasiadas solicitudes. Intenta nuevamente en un momento.'
-            ]);
-        }
-    });
+        $exceptions->render(function (ThrottleRequestsException $e, $request) {
+            if ($request->inertia()) {
+                return back()->withErrors([
+                    'throttle' => 'Estás enviando demasiadas solicitudes. Intenta nuevamente en un momento.'
+                ]);
+            }
+        });
+        $exceptions->render(function (NotFoundHttpException $e, $request) {
+            
+            return Inertia::render('errors/notFound');
+        });
     })->create();
