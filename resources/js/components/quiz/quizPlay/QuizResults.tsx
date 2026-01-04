@@ -4,6 +4,8 @@ import ButtonShareQuiz from "./ButtonShareQuiz";
 import { useEffect, useRef } from "react";
 import { router, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import ButtonLikeQuizz from "../ButtonLikeQuizz";
+import axios from "axios";
 
 export default function QuizResults() {
     const { quiz, score, reset } = useQuizPlay();
@@ -28,6 +30,16 @@ export default function QuizResults() {
             quizResultsRef.current.classList.add("opacity-100");
         }
     }, [quizResultsRef]);
+
+    const setLike = async (like: boolean) => {
+        //Si el usuario esta autenticado marcar quiz como completado
+        if (auth && auth.user) {
+            const request = await axios.post(route("quiz.like", quiz.id), {
+                like,
+            });
+            console.log(request.data);
+        }
+    };
 
     const scoreResult = () => {
         if (!quiz.questions) return;
@@ -99,6 +111,16 @@ export default function QuizResults() {
             </h3>
 
             {scoreResult()}
+
+            {/* Buttons Like and Dislike */}
+            <h4 className="text-neutral-500 text-center mt-9 font-semibold">
+                ¿Te gusto este quiz?
+            </h4>
+            <div className="grid grid-cols-2 gap-5 mx-auto mt-2 w-fit">
+                <ButtonLikeQuizz icon="like" like={true} onClick={setLike} />
+                <ButtonLikeQuizz icon="dislike" like={null} onClick={setLike} />
+            </div>
+
             <div className="bg-pink-200 p-1 w-fit rounded-full grid grid-cols-2 gap-1 mx-auto mt-8">
                 <button
                     onClick={() => reset()}
