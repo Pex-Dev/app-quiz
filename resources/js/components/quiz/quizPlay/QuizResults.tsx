@@ -1,15 +1,21 @@
 import { useQuizPlay } from "@/context/QuizPlayContext";
 import QuizCreator from "../QuizCreator";
 import ButtonShareQuiz from "./ButtonShareQuiz";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import ButtonLikeQuizz from "../ButtonLikeQuizz";
+import axios from "axios";
+import Update from "@/pages/quiz/Update";
 
 export default function QuizResults() {
-    const { quiz, score, reset } = useQuizPlay();
+    const [sendingRequest, setSendingRequest] = useState<boolean>(false);
+    const { quiz, score, reset, updateQuizValoration } = useQuizPlay();
     const { auth } = usePage().props;
 
     const quizResultsRef = useRef<HTMLDivElement>(null);
+
+    const currentValoration = quiz.like !== undefined ? quiz.like : null;
 
     useEffect(() => {
         //Si el usuario esta autenticado marcar quiz como completado
@@ -28,6 +34,38 @@ export default function QuizResults() {
             quizResultsRef.current.classList.add("opacity-100");
         }
     }, [quizResultsRef]);
+
+    const setLike = async (like: boolean) => {
+        //Si el usuario esta autenticado marcar quiz como completado
+        if (auth && auth.user) {
+            try {
+                if (sendingRequest) return;
+                setSendingRequest(true);
+
+                //Actualizar la valoración de una para que no se sienta lento para el usuario
+                updateQuizValoration(
+                    currentValoration == null
+                        ? like
+                        : currentValoration === like
+                        ? null
+                        : like
+                );
+
+                const request = await axios.post(route("quiz.like", quiz.id), {
+                    like,
+                });
+
+                const result = request.data.success;
+                if (result) {
+                    updateQuizValoration(request.data.result);
+                }
+                setSendingRequest(false);
+            } catch (error) {
+                setSendingRequest(false);
+                console.error(error);
+            }
+        }
+    };
 
     const scoreResult = () => {
         if (!quiz.questions) return;
@@ -99,6 +137,24 @@ export default function QuizResults() {
             </h3>
 
             {scoreResult()}
+
+            {/* Buttons Like and Dislike */}
+            <h4 className="text-neutral-500 text-center mt-9 font-semibold">
+                ¿Te gusto este quiz?
+            </h4>
+            <div className="grid grid-cols-2 gap-5 mx-auto mt-2 w-fit">
+                <ButtonLikeQuizz
+                    icon="like"
+                    like={currentValoration == true ? true : null}
+                    onClick={setLike}
+                />
+                <ButtonLikeQuizz
+                    icon="dislike"
+                    like={currentValoration == false ? false : null}
+                    onClick={setLike}
+                />
+            </div>
+
             <div className="bg-pink-200 p-1 w-fit rounded-full grid grid-cols-2 gap-1 mx-auto mt-8">
                 <button
                     onClick={() => reset()}

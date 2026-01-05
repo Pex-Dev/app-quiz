@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CompletedQuizzes;
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
+use App\Models\QuizLike;
 use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,22 @@ class QuizController extends Controller
 
     public function show($id){
         $quiz = Quiz::with("User","Questions.Answers") -> find($id);
-       
+        
+        $like = null;
+        
+        //Obtener el ususario
+        $user = auth() -> user();
+
+        //Obtener valoración
+        if($user){
+            $quizLike = QuizLike::where('quiz_id',$quiz -> id) -> where('user_id',$user -> id)->first();
+            if($quizLike){
+                $like = $quizLike -> like;
+            }
+        }
+
+        //Añadír valoración
+        $quiz -> like = $like;
 
         return Inertia::render('quiz/Play',[
             "quiz" => $quiz,
@@ -385,5 +401,46 @@ class QuizController extends Controller
             'user_id' => $user['id'],
             'quiz_id' =>  $quiz['id']
         ]);
+    }
+
+    public function setLike(Quiz $quiz, Request $request){
+        $user = auth()->user();
+    
+        //Ver si ya le dio like o dislike
+        $like = $request['like'];
+        $quizLike = QuizLike::where('quiz_id',$quiz['id'])->where('user_id',$user['id']) ->first();
+
+        //Resultado final de la valoración del usuario (like o dislike)
+        $result = null;
+
+        //Si ya se habia dado like o dislike actualizar
+        if($quizLike){
+            if($quizLike['like'] == $like){
+                $quizLike -> delete();
+            }else{
+                $quizLike['like'] = $like;
+                $quizLike -> save();
+                $result = $like;
+            }
+            return response() -> json([
+                'message' => 'actualizado',
+                'success' => true,
+                'result' => $result
+            ]);
+        }else{
+            QuizLike::create([
+                'quiz_id' => $quiz['id'],
+                'user_id' => $user['id'],
+                'like' => $like
+            ]);
+
+            $result = $like;
+
+            return response() -> json([
+                'message' => 'agregado',
+                'success' => true,
+                'result' => $result
+            ]);
+        }
     }
 }

@@ -30,4 +30,8 @@ class Quiz extends Model
     public function Completers(){
         return $this->belongsToMany(User::class, 'users_completed_quizzes', 'quiz_id', 'user_id')->withTimestamps();
     }
+
+    public function Likes(){
+        return $this->belongsToMany(User::class,'quizzes_likes','quiz_id','user_id')->withTimestamps();
+    }
 }
