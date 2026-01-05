@@ -1,13 +1,11 @@
 import { useQuizPlay } from "@/context/QuizPlayContext";
 import QuizQuestions from "./QuizQuestions";
 import QuizResults from "./QuizResults";
-import QuizCreator from "../QuizCreator";
 import backgroundsImages from "@/utilities/BackgroundCategories";
-import { Link, usePage } from "@inertiajs/react";
-import { route } from "ziggy-js";
+import { usePage } from "@inertiajs/react";
 import QuizIdle from "./QuizIdle";
 import ButtonEditQuiz from "./ButtonEditQuiz";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export default function QuizBoard() {
     const [height, setHeight] = useState(0);
