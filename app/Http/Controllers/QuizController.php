@@ -22,7 +22,22 @@ class QuizController extends Controller
 
     public function show($id){
         $quiz = Quiz::with("User","Questions.Answers") -> find($id);
-       
+        
+        $like = null;
+        
+        //Obtener el ususario
+        $user = auth() -> user();
+
+        //Obtener valoración
+        if($user){
+            $quizLike = QuizLike::where('quiz_id',$quiz -> id) -> where('user_id',$user -> id)->first();
+            if($quizLike){
+                $like = $quizLike -> like;
+            }
+        }
+
+        //Añadír valoración
+        $quiz -> like = $like;
 
         return Inertia::render('quiz/Play',[
             "quiz" => $quiz,
