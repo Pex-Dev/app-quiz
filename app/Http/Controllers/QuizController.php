@@ -410,6 +410,9 @@ class QuizController extends Controller
         $like = $request['like'];
         $quizLike = QuizLike::where('quiz_id',$quiz['id'])->where('user_id',$user['id']) ->first();
 
+        //Resultado final de la valoración del usuario (like o dislike)
+        $result = null;
+
         //Si ya se habia dado like o dislike actualizar
         if($quizLike){
             if($quizLike['like'] == $like){
@@ -417,10 +420,12 @@ class QuizController extends Controller
             }else{
                 $quizLike['like'] = $like;
                 $quizLike -> save();
+                $result = $like;
             }
             return response() -> json([
                 'message' => 'actualizado',
                 'success' => true,
+                'result' => $result
             ]);
         }else{
             QuizLike::create([
@@ -428,9 +433,13 @@ class QuizController extends Controller
                 'user_id' => $user['id'],
                 'like' => $like
             ]);
+
+            $result = $like;
+
             return response() -> json([
                 'message' => 'agregado',
                 'success' => true,
+                'result' => $result
             ]);
         }
     }
