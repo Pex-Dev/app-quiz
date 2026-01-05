@@ -20,6 +20,7 @@ interface QuizPlayContextInterface {
     score: number;
     setScore: Dispatch<SetStateAction<number>>;
     reset: (withAlert?: boolean) => void;
+    updateQuizValoration: (valoration: boolean | null) => void;
 }
 
 const QuizPlayContext = createContext<QuizPlayContextInterface | null>(null);
@@ -85,6 +86,11 @@ const QuizPlayProvider = ({
         }
     };
 
+    const updateQuizValoration = (valoration: boolean | null) => {
+        const updatedQuiz: Quiz = { ...quiz, like: valoration };
+        setQuiz(updatedQuiz);
+    };
+
     return (
         <QuizPlayContext.Provider
             value={{
@@ -99,6 +105,7 @@ const QuizPlayProvider = ({
                 score,
                 setScore,
                 reset,
+                updateQuizValoration,
             }}
         >
             {children}
