@@ -32,6 +32,6 @@ class Quiz extends Model
     }
 
     public function Likes(){
-        return $this->belongsToMany(User::class,'quizzes_likes','quiz_id','user_id')->withTimestamps();
+        return $this->hasMany(QuizLike::class);
     }
 }
