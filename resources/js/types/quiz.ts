@@ -26,6 +26,7 @@ export type Quiz = {
     questions_count?: number | null;
     completed?: number;
     like?: boolean | null;
+    likes?: Like[];
 };
 
 export type User = {
@@ -58,3 +59,9 @@ export interface Results {
     to: number;
     total: number;
 }
+
+export type Like = {
+    quiz_id: number;
+    like: boolean;
+    user: User[];
+};
