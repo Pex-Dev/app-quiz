@@ -2,28 +2,9 @@ import { Like, Quiz } from "@/types/quiz";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import backgroundsImages from "@/utilities/BackgroundCategories";
+import { valorationsCount } from "@/utilities/ValorationCount";
 
 export default function QuizCard({ quiz }: { quiz: Quiz }) {
-    const valorationsCount = (
-        likesList: Like[] | undefined,
-        valoration: "like" | "dislike"
-    ): number => {
-        let vCount = 0;
-
-        if (likesList === undefined) return 0;
-
-        likesList.forEach((l) => {
-            if (l.like && valoration === "like") {
-                vCount++;
-            }
-            if (!l.like && valoration === "dislike") {
-                vCount++;
-            }
-        });
-
-        return vCount;
-    };
-
     const likes = valorationsCount(quiz.likes, "like");
     const dislikes = valorationsCount(quiz.likes, "dislike");
 
