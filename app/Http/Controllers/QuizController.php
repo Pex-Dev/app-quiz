@@ -21,7 +21,7 @@ class QuizController extends Controller
     }
 
     public function show($id){
-        $quiz = Quiz::with("User","Questions.Answers") -> find($id);
+        $quiz = Quiz::with("User","Questions.Answers","Likes") -> find($id);
         
         $like = null;
         
