@@ -1,10 +1,8 @@
-import React from "react";
-
 const iconLike = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="45"
-        height="45"
+        width="35"
+        height="35"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -19,8 +17,8 @@ const iconLike = (
 const iconDislike = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="45"
-        height="45"
+        width="35"
+        height="35"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -35,13 +33,15 @@ const iconDislike = (
 export default function ButtonLikeQuizz({
     icon,
     like,
+    disabled = false,
     onClick,
 }: {
     icon: "like" | "dislike";
     like: boolean | null;
+    disabled?: boolean;
     onClick: (like: boolean) => Promise<void>;
 }) {
-    const baseClassname = "transition-all hover:scale-110 hover:cursor-pointer";
+    const baseClassname = "transition-all";
 
     const likeClassname = `${
         like === null
@@ -50,6 +50,10 @@ export default function ButtonLikeQuizz({
             ? "text-blue-300"
             : "text-red-400"
     }`;
+
+    const disabledClassName = disabled
+        ? "hover:cursor-default"
+        : "hover:cursor-pointer hover:scale-110";
 
     const label = `${
         like === null
@@ -65,8 +69,9 @@ export default function ButtonLikeQuizz({
         <button
             aria-label={label}
             title={label}
+            disabled={disabled}
             onClick={() => onClick(icon === "like" ? true : false)}
-            className={`${baseClassname} ${likeClassname}`}
+            className={`${baseClassname} ${likeClassname} ${disabledClassName}`}
         >
             {icon === "like" ? iconLike : iconDislike}
         </button>
