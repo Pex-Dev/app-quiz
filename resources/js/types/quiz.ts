@@ -25,8 +25,10 @@ export type Quiz = {
     image?: string;
     questions_count?: number | null;
     completed?: number;
-    like?: boolean | null;
+    user_valoration?: boolean | null;
     likes?: Like[];
+    likes_count: number;
+    dislikes_count: number;
 };
 
 export type User = {
@@ -63,5 +65,5 @@ export interface Results {
 export type Like = {
     quiz_id: number;
     like: boolean;
-    user: User[];
+    user_id: number;
 };
