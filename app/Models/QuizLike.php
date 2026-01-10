@@ -13,4 +13,14 @@ class QuizLike extends Model
         'quiz_id',
         'like'
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function Quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

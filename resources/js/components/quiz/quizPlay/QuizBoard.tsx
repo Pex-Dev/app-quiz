@@ -14,6 +14,7 @@ export default function QuizBoard() {
 
     const contentRef = useRef<HTMLDivElement>(null);
 
+    //Cambiar la altura dinámicamente al contenedor
     useLayoutEffect(() => {
         if (contentRef.current) {
             setHeight(contentRef.current.scrollHeight);
@@ -48,10 +49,19 @@ export default function QuizBoard() {
                         <ButtonEditQuiz />
                     )}
                     <div
-                        className={`absolute w-full h-full bg-linear-to-t from-white px-3 pt-3 flex flex-col justify-end mb-3 ${
+                        className={`absolute w-full h-full from-15% bg-linear-to-t from-white px-3 pt-3 flex flex-col justify-end mb-3 ${
                             quiz.image ? "to-white/10" : "to-white/60"
                         }`}
                     ></div>
+                    <h2
+                        className={`absolute w-full text-center bottom-1 font-roboto transition-colors uppercase font-semibold text-lg md:text-xl lg:text-2xl left-1/2 -translate-x-1/2 ${
+                            quizState === "idle"
+                                ? "text-neutral-900"
+                                : "text-transparent cursor-default"
+                        }`}
+                    >
+                        {quiz.name}
+                    </h2>
                 </header>
                 {quizState === "idle" && <QuizIdle />}
                 {quizState === "playing" && <QuizQuestions />}

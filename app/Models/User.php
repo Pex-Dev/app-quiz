@@ -56,6 +56,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function LikedQuizzes(){
-        return $this->belongsToMany(Quiz::class,'quizzes_likes','user_id','quiz_id')->withTimestamps();
+        return $this->belongsToMany(Quiz::class,'quizzes_likes','user_id','quiz_id')->withPivot('like')->withTimestamps();
     }
 }

@@ -1,4 +1,4 @@
-import { Answer, Quiz } from "@/types/quiz";
+import { Answer, Like, Quiz } from "@/types/quiz";
 import {
     createContext,
     Dispatch,
@@ -46,10 +46,13 @@ const QuizPlayProvider = ({
     const soundIncorrect = new Audio("/sounds/incorrect_answer.mp3");
     const soundComplete = new Audio("/sounds/quiz_completed.mp3");
 
+    //Cambiar a la siguiente pregunta del quiz
     const nextQuestion = () => {
         if (!quiz.questions) return;
 
         setCurrentQuestionNumber((prev) => prev + 1);
+
+        //Si se completaron todas las preguntas pasar a las respuestas
         if (currentQuestionNumber >= quiz.questions.length) {
             setTimeout(() => {
                 setQuizState("results");
@@ -86,8 +89,67 @@ const QuizPlayProvider = ({
         }
     };
 
+    //Probablemente esta función se puede hacer mucho mejor, pero a mi me funciona :P
+
     const updateQuizValoration = (valoration: boolean | null) => {
-        const updatedQuiz: Quiz = { ...quiz, like: valoration };
+        let updatedLikeCount = quiz.likes_count;
+        let updatedDislikeCount = quiz.dislikes_count;
+
+        //Si el usuario ya valoro el quiz
+        if (
+            quiz.user_valoration !== null &&
+            quiz.user_valoration !== undefined
+        ) {
+            //Si el usuario cambio su valoración
+            if (valoration !== null) {
+                //Valoración positiva
+                if (valoration) {
+                    updatedLikeCount = quiz.likes_count + 1;
+                    updatedDislikeCount =
+                        quiz.dislikes_count > 0 ? quiz.dislikes_count - 1 : 0;
+                }
+                //Valoración negativa
+                if (!valoration) {
+                    updatedLikeCount =
+                        quiz.likes_count > 0 ? quiz.likes_count - 1 : 0;
+                    updatedDislikeCount = quiz.dislikes_count + 1;
+                }
+
+                //Si el usuario quito su valoración
+            } else {
+                //Quitar valoración positiva
+                if (quiz.user_valoration) {
+                    updatedLikeCount =
+                        quiz.likes_count > 0 ? quiz.likes_count - 1 : 0;
+                    //Quiar valoración negativa
+                } else {
+                    updatedDislikeCount =
+                        quiz.dislikes_count > 0 ? quiz.dislikes_count - 1 : 0;
+                }
+            }
+        } else {
+            //Si el usuario no ha valorado el quiz
+            if (valoration !== null) {
+                //Valoración positiva
+                if (valoration) {
+                    updatedLikeCount++;
+                }
+                //Valoración negativa
+                if (!valoration) {
+                    updatedDislikeCount++;
+                }
+            }
+        }
+
+        //Crear quiz actualizado
+        const updatedQuiz: Quiz = {
+            ...quiz,
+            user_valoration: valoration,
+            dislikes_count: updatedDislikeCount,
+            likes_count: updatedLikeCount,
+        };
+
+        //Acualizar el estado con el quiz actualizado
         setQuiz(updatedQuiz);
     };
 

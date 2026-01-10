@@ -1,9 +1,44 @@
-import { Quiz } from "@/types/quiz";
+import { Like, Quiz } from "@/types/quiz";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import backgroundsImages from "@/utilities/BackgroundCategories";
+import { valorationsCount } from "@/utilities/ValorationCount";
 
 export default function QuizCard({ quiz }: { quiz: Quiz }) {
+    const likes = valorationsCount(quiz.likes, "like");
+    const dislikes = valorationsCount(quiz.likes, "dislike");
+
+    const iconLike = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
+        </svg>
+    );
+
+    const iconDislike = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3" />
+        </svg>
+    );
     const checkIcon = (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -76,30 +111,59 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
                     <span>{quiz.completed ? "Completado" : "comenzar"}</span>
                     {quiz.completed ? checkIcon : arrowIcon}
                 </Link>
-                <div
-                    title={`Este quiz tiene ${quiz.questions_count} preguntas`}
-                    className="flex items-center gap-1 mb-2"
-                >
-                    <div className="bg-green-500 text-white w-fit h-fit rounded-full cursor-default">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2 "
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" />
-                            <path d="M12 19l0 .01" />
-                        </svg>
+                <div className="flex flex-col gap-2">
+                    <div
+                        title={`Este quiz tiene ${quiz.questions_count} preguntas`}
+                        className="flex items-center justify-end gap-1 mb-2"
+                    >
+                        <div className="bg-green-500 text-white w-fit h-fit rounded-full cursor-default">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2 "
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" />
+                                <path d="M12 19l0 .01" />
+                            </svg>
+                        </div>
+                        {/* Número de preguntas */}
+                        <span className="text-sm cursor-default">
+                            {" "}
+                            {quiz.questions_count}{" "}
+                        </span>
                     </div>
-                    <span className="text-sm cursor-default">
-                        {" "}
-                        {quiz.questions_count}{" "}
-                    </span>
+                    <div
+                        className={`flex items-center gap-2 bg-neutral-100 rounded-full px-1 border-t border-t-neutral-200 ${
+                            likes === 0 && dislikes === 0
+                                ? "text-neutral-400"
+                                : "text-neutral-700"
+                        }`}
+                    >
+                        <div
+                            className="flex items-center"
+                            title="Número de likes de este quiz"
+                        >
+                            {iconLike}
+                            <span className="text-sm cursor-default">
+                                {likes}
+                            </span>
+                        </div>
+                        <div
+                            className="flex items-center"
+                            title="Número de dislikes de este quiz"
+                        >
+                            {iconDislike}
+                            <span className="text-sm cursor-default">
+                                {dislikes}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

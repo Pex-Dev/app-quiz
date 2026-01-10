@@ -139,21 +139,26 @@ export default function QuizResults() {
             {scoreResult()}
 
             {/* Buttons Like and Dislike */}
-            <h4 className="text-neutral-500 text-center mt-9 font-semibold">
-                ¿Te gusto este quiz?
-            </h4>
-            <div className="grid grid-cols-2 gap-5 mx-auto mt-2 w-fit">
-                <ButtonLikeQuizz
-                    icon="like"
-                    like={currentValoration == true ? true : null}
-                    onClick={setLike}
-                />
-                <ButtonLikeQuizz
-                    icon="dislike"
-                    like={currentValoration == false ? false : null}
-                    onClick={setLike}
-                />
-            </div>
+
+            {auth && auth.user && (
+                <>
+                    <h4 className="text-neutral-500 text-center mt-9 font-semibold">
+                        ¿Te gusto este quiz?
+                    </h4>
+                    <div className="grid grid-cols-2 gap-5 mx-auto mt-2 w-fit">
+                        <ButtonLikeQuizz
+                            icon="like"
+                            like={currentValoration == true ? true : null}
+                            onClick={setLike}
+                        />
+                        <ButtonLikeQuizz
+                            icon="dislike"
+                            like={currentValoration == false ? false : null}
+                            onClick={setLike}
+                        />
+                    </div>
+                </>
+            )}
 
             <div className="bg-pink-200 p-1 w-fit rounded-full grid grid-cols-2 gap-1 mx-auto mt-8">
                 <button

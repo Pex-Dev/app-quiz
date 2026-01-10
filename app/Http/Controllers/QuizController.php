@@ -21,10 +21,17 @@ class QuizController extends Controller
     }
 
     public function show($id){
-        $quiz = Quiz::with("User","Questions.Answers") -> find($id);
-        
+        $quiz = Quiz::with("User","Questions.Answers") -> withCount([
+            'likes as likes_count' => function ($query){
+                $query -> where('like',1);
+            },
+            'likes as dislikes_count' => function ($query){
+                $query -> where('like',0);
+            }
+        ]) -> find($id);
+
         $like = null;
-        
+
         //Obtener el ususario
         $user = auth() -> user();
 
@@ -37,7 +44,7 @@ class QuizController extends Controller
         }
 
         //Añadír valoración
-        $quiz -> like = $like;
+        $quiz -> user_valoration = $like;
 
         return Inertia::render('quiz/Play',[
             "quiz" => $quiz,
