@@ -6,8 +6,15 @@ import TextArea from "../../ui/TextArea";
 import AnswersListContainer from "./AnswersListContainer";
 import AnswerInput from "./AnswerInput";
 import ButtonAddAnswer from "./ButtonAddAnswer";
+import ErrorText from "@/components/common/TextError";
 
-export default function QuestionInput({ question }: { question: Question }) {
+export default function QuestionInput({
+    question,
+    index,
+}: {
+    question: Question;
+    index: number;
+}) {
     const {
         form,
         updateQuestion,
@@ -16,27 +23,9 @@ export default function QuestionInput({ question }: { question: Question }) {
         questions,
     } = useQuizForm();
     const { errors, processing } = form;
-
     const inputAddAnswerId = useId();
 
     const refInputAnswer = useRef<HTMLInputElement>(null);
-
-    const errorTexts = (error: string) => {
-        const errorsList = error.split("|");
-        return (
-            <ul className="border bg-red-600 border-white pl-7 py-1 text-white rounded-sm flex flex-col gap-2 mt-2">
-                {errorsList.map((e, index) =>
-                    e.includes(String(question.id)) ? (
-                        <li key={index} className="list-disc">
-                            {e.replace(String(question.id), "")}
-                        </li>
-                    ) : (
-                        ""
-                    )
-                )}
-            </ul>
-        );
-    };
 
     return (
         <li
@@ -48,13 +37,13 @@ export default function QuestionInput({ question }: { question: Question }) {
         >
             <div className="flex flex-col w-full">
                 <div className="w-full">
-                    {/* Botón eliminar pregunta */}
+                    {/*--------------------------------------------- BOTÓN ELIMINAR PREGUNTA --------------------------------------------------*/}
                     <ButtonDeleteQuestion
                         question={question}
                         processing={processing}
                     />
                     <header className="w-full">
-                        {/* Input pregunta */}
+                        {/*--------------------------------------------- INPUT PREGUNTA --------------------------------------------------*/}
                         <label
                             className="text-white"
                             htmlFor={String(question.id)}
@@ -79,22 +68,40 @@ export default function QuestionInput({ question }: { question: Question }) {
                             maxLength={150}
                             className="min-h-auto mt-2"
                         />
+                        {errors[`questions.${index}.question_text`] && (
+                            <ErrorText>
+                                {errors[`questions.${index}.question_text`]}
+                            </ErrorText>
+                        )}
                     </header>
-                    {/* Respuestas */}
+                    {/*--------------------------------------------- RESPUESTAS --------------------------------------------------*/}
                     {question.answers.length > 0 && (
                         <AnswersListContainer>
                             <ul className="flex flex-col gap-2">
-                                {question.answers.map((a, index) => (
-                                    <AnswerInput
-                                        key={index}
-                                        question={question}
-                                        answer={a}
-                                    />
+                                {question.answers.map((a, i) => (
+                                    <>
+                                        <AnswerInput
+                                            key={i}
+                                            question={question}
+                                            answer={a}
+                                        />
+                                        {errors[
+                                            `questions.${index}.answers.${i}.answer_text`
+                                        ] && (
+                                            <ErrorText>
+                                                {
+                                                    errors[
+                                                        `questions.${index}.answers.${i}.answer_text`
+                                                    ]
+                                                }
+                                            </ErrorText>
+                                        )}
+                                    </>
                                 ))}
                             </ul>
                         </AnswersListContainer>
                     )}
-                    {/* Botón añadir respuesta */}
+                    {/*--------------------------------------------- BOTÓN AÑADÍR RESPUESTA --------------------------------------------------*/}
                     <label
                         className="text-white mt-3"
                         htmlFor={inputAddAnswerId}
@@ -108,10 +115,13 @@ export default function QuestionInput({ question }: { question: Question }) {
                         disabled={question.answers.length === 5}
                     />
                 </div>
-
-                {errors.questions?.includes(String(question.id)) &&
-                    errorTexts(errors.questions)}
+                {errors[`questions.${index}.answers`] && (
+                    <ErrorText>
+                        {errors[`questions.${index}.answers`]}
+                    </ErrorText>
+                )}
             </div>
+            {/*--------------------------------------------- BOTONES PARA CAMBIAR ORDEN DE PREGUNTAS --------------------------------------------------*/}
             <div className="w-full md:w-fit flex flex-col min-h-full justify-center items-center">
                 <button
                     disabled={question.order <= 0}
