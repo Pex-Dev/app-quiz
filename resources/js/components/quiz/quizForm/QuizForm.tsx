@@ -139,14 +139,16 @@ export default function QuizForm({ title }: { title: string }) {
                             }
                             options={visibiltyOptions}
                         />
+                        {errors.category && (
+                            <ErrorText>{errors.category}</ErrorText>
+                        )}
                     </div>
                 </div>
                 <ImageCropper
                     handleCroppedImage={handleCroppedImage}
                     currentImage={data.image ? `/uploads/${data.image}` : null}
                 />
-                {errors.questions?.includes("image_error") &&
-                    errorImage(errors.questions)}
+                {errors.image && <ErrorText>{errors.image}</ErrorText>}
                 <div className="flex flex-col gap-1 mt-4">
                     <label className="text-white" htmlFor={nameId}>
                         Descripción del quiz
