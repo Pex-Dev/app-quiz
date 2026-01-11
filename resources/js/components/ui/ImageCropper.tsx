@@ -19,6 +19,7 @@ export default function ImageCropper({
     const inputFileCroppId = useId();
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setError(null);
         const files = e.target.files;
 
         if (!files) return;
