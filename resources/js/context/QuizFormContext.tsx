@@ -210,7 +210,7 @@ const QuizProvider = ({
         if (!questionToUpdate) return;
 
         //Verificar que no supere el número máximo de respuestas
-        if (questionToUpdate.answers.length === 5) return;
+        if (questionToUpdate.answers.length === 4) return;
 
         const updatedQuestion: Question = {
             id: questionToUpdate.id,
