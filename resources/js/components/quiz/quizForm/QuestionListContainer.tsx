@@ -102,11 +102,10 @@ export default function QuestionListContainer() {
             >
                 {/*--------------------------------------------- PREGUNTAS --------------------------------------------------*/}
                 {questions.map((q, index) => (
-                    <QuestionInput key={index} question={q} />
+                    <QuestionInput key={index} index={index} question={q} />
                 ))}
             </ul>
-            {errors.questions?.includes("no_questions") &&
-                errorNoQuestions(errors.questions)}
+            {errors.questions && <ErrorText>{errors.questions}</ErrorText>}
             {/*--------------------------------------------- BOTÓN AÑADIR PREGUNTAS --------------------------------------------------*/}
             <div className="mt-4">
                 <label className="text-white" htmlFor={inputAddQuestionId}>
