@@ -15,7 +15,8 @@ export default function QuizResults() {
 
     const quizResultsRef = useRef<HTMLDivElement>(null);
 
-    const currentValoration = quiz.like !== undefined ? quiz.like : null;
+    const currentValoration =
+        quiz.user_valoration !== undefined ? quiz.user_valoration : null;
 
     useEffect(() => {
         //Si el usuario esta autenticado marcar quiz como completado
