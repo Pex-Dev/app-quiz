@@ -42,6 +42,7 @@ Route::post('/email/verification-notification',[RegisterController::class,'send'
 
 
 //Quiz
+Route::get('/quiz',[QuizController::class,'index'])->name('quiz.index');
 Route::get('/quiz/create',[QuizController::class,'create']) -> name('quiz.create') -> middleware(['auth','verified']);
 Route::get('/quiz/{quiz}',[QuizController::class,'show']) -> name('quiz');
 Route::post('/quiz',[QuizController::class,'store'])-> name('quiz.store') -> middleware(['auth','verified']);
