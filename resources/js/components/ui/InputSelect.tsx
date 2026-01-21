@@ -173,7 +173,7 @@ export default function InputSelect({
     );
 
     return (
-        <div ref={ref} className="relative">
+        <div ref={ref} className="relative min-w-[150px]">
             <input
                 type="hidden"
                 name={name}

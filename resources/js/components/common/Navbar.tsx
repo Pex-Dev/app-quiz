@@ -1,5 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Form, Link, usePage } from "@inertiajs/react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import SearchBar from "../ui/SearchBar";
 
@@ -162,14 +162,14 @@ export default function Navbar() {
                             <ul className="flex flex-col jus lg:flex-row gap-3 lg:gap-5">
                                 <li className="text-white text-center">
                                     <Link
-                                        href="#"
+                                        href={route("quiz.index")}
                                         onClick={() => setShowMenu(false)}
                                         tabIndex={
                                             device === "desktop"
                                                 ? 0
                                                 : showMenu
-                                                ? 0
-                                                : -1
+                                                  ? 0
+                                                  : -1
                                         }
                                         className="whitespace-nowrap"
                                     >
@@ -178,14 +178,16 @@ export default function Navbar() {
                                 </li>
                                 <li className="text-white text-center">
                                     <Link
-                                        href="#"
+                                        href={route("quiz.index", {
+                                            order: "like",
+                                        })}
                                         onClick={() => setShowMenu(false)}
                                         tabIndex={
                                             device === "desktop"
                                                 ? 0
                                                 : showMenu
-                                                ? 0
-                                                : -1
+                                                  ? 0
+                                                  : -1
                                         }
                                         className="whitespace-nowrap"
                                     >
@@ -202,8 +204,8 @@ export default function Navbar() {
                                                 device === "desktop"
                                                     ? 0
                                                     : showMenu
-                                                    ? 0
-                                                    : -1
+                                                      ? 0
+                                                      : -1
                                             }
                                         >
                                             Crear quiz

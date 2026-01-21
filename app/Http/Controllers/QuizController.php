@@ -9,6 +9,7 @@ use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizLike;
 use App\Models\QuizQuestion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -17,8 +18,53 @@ use Inertia\Inertia;
 class QuizController extends Controller
 {
     public function index(Request $request){
- 
-        return Inertia::render('quiz/Create');
+        $order = $request->get('order','new');
+        $category = $request->get('category');
+        $search = $request -> get('search');
+
+        $user = auth()->user();
+        
+        $query = Quiz::with('Likes')->withCount("Questions");
+        if($user){
+                $query ->withExists(['Completers as completed'=> fn($q) => $q -> where('user_id',$user['id'])]);
+        }        
+        if($search){
+            $query -> where('name','LIKE','%'.$search.'%');
+        }
+        if($category){
+            $query -> where('category_id',$category);
+        }
+
+        switch ($order) {
+            case 'new':
+                $query->orderBy('created_at','desc');
+            break;
+            case 'old':
+                $query -> orderBy('created_at','asc');
+            break;
+            case 'like':
+                $query -> withCount(['likes as likes_count' => function (Builder $query) {
+                    $query->where('like', 1);
+                }]);
+                $query -> orderByDesc('likes_count','desc');
+            break;
+            case 'dislike':
+                $query -> withCount(['likes as dislikes_count' => function (Builder $query) {
+                    $query->where('like', 0);
+                }]);
+                $query -> orderBy('dislikes_count','desc');
+            break;
+            
+            default:
+                $query -> orderBy('created_at','desc');
+                break;
+        }
+
+        $results = $query -> paginate(20);
+
+        return Inertia::render('quiz/Index',[
+            'results' => $results
+        ]);
     }
 
     public function show(Quiz $quiz){
