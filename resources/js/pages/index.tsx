@@ -15,7 +15,10 @@ const Index = (props: { quizzes: Quiz[] }) => {
                     Crea y completa quizzes
                 </h2>
                 <div className="w-fit mx-auto mt-18 md:mt-20">
-                    <Link className="transition-all duration-300 shadow-lg shadow-transparent hover:shadow-white/20 hover:border-b-neutral-300 hover:text-blue-300 bg-white text-blue-900 border-b-4 border-b-neutral-400  text-lg md:text-xl font-roboto font-semibold px-4 md:px-5 py-2 md:py-3 rounded-full">
+                    <Link
+                        href={route("quiz.index")}
+                        className="transition-all duration-300 shadow-lg shadow-transparent hover:shadow-white/20 hover:border-b-neutral-300 hover:text-blue-300 bg-white text-blue-900 border-b-4 border-b-neutral-400  text-lg md:text-xl font-roboto font-semibold px-4 md:px-5 py-2 md:py-3 rounded-full"
+                    >
                         Explorar quizzes
                     </Link>
                     <Link
