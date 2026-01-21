@@ -38,7 +38,7 @@ export default function SearchBar({ tabIndex = 0 }: { tabIndex?: number }) {
     return (
         <div ref={contRef} className="w-full md:max-w-[500px] lg:max-w-[600px]">
             <form
-                action={route("search.index", searchText)}
+                action={route("quiz.index", searchText)}
                 onSubmit={(e) => {
                     if (searchText.length < 3) {
                         e.preventDefault();
@@ -48,7 +48,7 @@ export default function SearchBar({ tabIndex = 0 }: { tabIndex?: number }) {
             >
                 <input
                     type="search"
-                    name="search_text"
+                    name="search"
                     id={searchId}
                     value={searchText}
                     placeholder="Buscar"
