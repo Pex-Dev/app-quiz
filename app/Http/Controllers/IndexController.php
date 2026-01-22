@@ -12,7 +12,7 @@ class IndexController extends Controller
     public function Index(Request $request){
         $user = auth() -> user();
         
-        $query = Quiz::with('Likes')->withCount("Questions");
+        $query = Quiz::where('isPublic',1)->with('Likes')->withCount("Questions");
         if($user){
                 $query ->withExists(['Completers as completed'=> fn($q) => $q -> where('user_id',$user['id'])]);
         }
