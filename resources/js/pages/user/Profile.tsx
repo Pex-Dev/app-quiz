@@ -10,7 +10,7 @@ const Profile = (props: { user: User }) => {
 
     const quizLink = (quiz: Quiz, key: number) => {
         return (
-            <Link key={key} className="h-fit">
+            <Link href={route("quiz", quiz.id)} key={key} className="h-fit">
                 <img
                     src={
                         quiz.image
@@ -25,16 +25,33 @@ const Profile = (props: { user: User }) => {
         );
     };
 
-    const sectionHeader = (title: string, count: number) => {
+    const sectionHeader = (
+        title: string,
+        count: number,
+        type: "quizzes" | "likes",
+    ) => {
         return (
             <header className="flex justify-between mb-4">
-                <Link>
-                    <h2 className="text-lg font-roboto text-neutral-700 font-semibold">
+                <Link
+                    href={
+                        type === "quizzes"
+                            ? route("profile.quizzes", user.name)
+                            : route("profile.likes", user.name)
+                    }
+                >
+                    <h2 className="text-lg font-roboto text-neutral-700 hover:text-cyan-700 transition-colors font-semibold">
                         {title}
                     </h2>
                 </Link>
 
-                <Link className="text-neutral-700">{`(${count})`}</Link>
+                <Link
+                    href={
+                        type === "quizzes"
+                            ? route("profile.quizzes", user.name)
+                            : route("profile.likes", user.name)
+                    }
+                    className="text-neutral-700 hover:text-cyan-700 transition-colors "
+                >{`(${count})`}</Link>
             </header>
         );
     };
@@ -101,6 +118,7 @@ const Profile = (props: { user: User }) => {
                     {sectionHeader(
                         `Quizz creadas por ${user.name}`,
                         user.quizzes_count,
+                        "quizzes",
                     )}
                     {user.quizzes.length > 0 ? (
                         <div className="rounded-md grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
@@ -118,6 +136,7 @@ const Profile = (props: { user: User }) => {
                     {sectionHeader(
                         `Me gustas de ${user.name}`,
                         user.liked_quizzes_count,
+                        "likes",
                     )}
                     {user.liked_quizzes.length > 0 ? (
                         <div className="rounded-md grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
