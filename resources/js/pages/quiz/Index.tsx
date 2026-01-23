@@ -19,8 +19,6 @@ const Index = (props: { results: Results; searchText: string }) => {
     const { results } = props;
 
     const submit = (clearText = false) => {
-        console.log(clearText);
-
         router.get(route("quiz.index"), {
             category,
             order,
@@ -205,8 +203,9 @@ const Index = (props: { results: Results; searchText: string }) => {
             {/* Botones de paginación */}
             <footer className="px-3 md:px-4 lg:px-5 max-w-[1440px] mx-auto mt-4">
                 <nav className="flex gap-3 md:gap-4">
-                    {results.links.map((link) => (
+                    {results.links.map((link, index) => (
                         <Link
+                            key={index}
                             href={link.url ? link.url : "#"}
                             disabled={link.active}
                             className={`border-b-4 px-3 py-2 rounded-md font-nunito ${
