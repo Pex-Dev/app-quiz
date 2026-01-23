@@ -18,6 +18,8 @@ Route::post('/logout',[AuthController::class,'destroy']) -> middleware('auth') -
 
 //Profile
 Route::get('/users/{user:name}',[ProfileController::class,'show'])->name('profile');
+Route::get('/users/{user:name}/quizzes',[ProfileController::class,'quizzes'])->name('profile.quizzes');
+Route::get('/users/{user:name}/likes',[ProfileController::class,'likes'])->name('profile.likes');
 
 //Register
 Route::get('/register',[RegisterController::class,'index']) -> name('register');
