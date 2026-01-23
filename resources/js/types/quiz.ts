@@ -37,6 +37,10 @@ export type User = {
     image: string | null;
     email?: string;
     created_at?: string;
+    quizzes: Quiz[];
+    quizzes_count: number;
+    liked_quizzes: Quiz[];
+    liked_quizzes_count: number;
 };
 
 export interface Link {
