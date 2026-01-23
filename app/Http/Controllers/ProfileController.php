@@ -28,4 +28,20 @@ class ProfileController extends Controller
             ]
         ]);
     }
+
+    public function quizzes(User $user){
+        $authUser = auth()->user();
+        return Inertia::render("user/Quizzes",[
+            "user" => $user,
+            "results" => $authUser != null && $authUser->id === $user->id ? $user -> Quizzes()->paginate(20) : $user -> Quizzes()->where('isPublic',1)->paginate(20)
+        ]);
+    }
+
+    public function likes(User $user){
+        $authUser = auth()->user();
+        return Inertia::render("user/Likes",[
+            "user" => $user,
+            "results" => $authUser != null && $authUser->id === $user->id ? $user -> LikedQuizzes()->paginate(20) : $user -> LikedQuizzes()->where('isPublic',1)->paginate(20)
+        ]);
+    }
 }
