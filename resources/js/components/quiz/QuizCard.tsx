@@ -101,7 +101,10 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
             </header>
             <div className="p-3 flex justify-between items-end">
                 <Link
-                    href={route("quiz", quiz.id)}
+                    href={route("quiz", {
+                        quiz: quiz.id,
+                        slug: quiz.slug,
+                    })}
                     className={`w-fit flex items-center gap-3  border-b-4 text-white rounded-full py-1 px-3 transition-colors hover:cursor-pointer ${
                         quiz.completed
                             ? "bg-green-600 border-b-green-800 hover:bg-green-500"
