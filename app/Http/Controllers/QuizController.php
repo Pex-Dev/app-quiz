@@ -68,7 +68,11 @@ class QuizController extends Controller
         ]);
     }
 
-    public function show(Quiz $quiz){
+    public function show(Quiz $quiz, $slug){
+        if($quiz->slug != $slug){
+            return redirect("/quiz/{$quiz->id}-{$quiz->slug}", 301);
+        }
+
         $quiz->load(['user', 'questions.answers'])->loadCount([
             'likes as likes_count' => function ($query){
                 $query -> where('like',1);
@@ -132,14 +136,16 @@ class QuizController extends Controller
         return back() ->with('success', 'Quiz creado correctamente');
     }
 
-    public function edit($id){
-        $user =  auth() -> user();
-        $quiz = Quiz::with(["Category","Questions.Answers"]) -> find($id);
+    public function edit(Quiz $quiz, $slug){
+        if($quiz->slug != $slug){
+            return redirect("/quiz/{$quiz->id}-{$quiz->slug}/edit", 301);
+        }
 
-        if($quiz){
-            if($quiz["user_id"] != $user["id"]){
-                return redirect("/");
-            }
+        $user =  auth() -> user();
+        $quiz->load(['category', 'questions.answers']);
+
+        if($quiz["user_id"] != $user["id"]){
+            return redirect("/");
         }
 
         return Inertia::render("quiz/Update",[
