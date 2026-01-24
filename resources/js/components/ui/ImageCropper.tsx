@@ -126,6 +126,13 @@ export default function ImageCropper({
                             >
                                 Aceptar
                             </button>
+                            <button
+                                type="button"
+                                onClick={() => setImage(null)}
+                                className="ml-2 bg-neutral-300 border-b-neutral-400 hover:bg-neutral-400 hover:border-b-neutral-500 text-neutral-700 hover:cursor-pointer transition-colors border-b-5 font-semibold px-10 py-2 rounded-lg"
+                            >
+                                Cancelar
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -133,7 +140,7 @@ export default function ImageCropper({
             {croppedImage && displayImage && (
                 <img
                     src={croppedImage}
-                    alt="Imagen para el quiz"
+                    alt="Imagen seleccionada"
                     className="rounded-md overflow-hidden mt-3 w-full aspect-video bg-neutral-800"
                 />
             )}
