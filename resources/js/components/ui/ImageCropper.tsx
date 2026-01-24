@@ -6,13 +6,21 @@ import ErrorText from "../common/TextError";
 export default function ImageCropper({
     handleCroppedImage,
     currentImage,
+    className,
+    label,
+    displayImage = true,
+    aspectRatio = 16 / 9,
 }: {
     handleCroppedImage: (croppImage: string) => void;
     currentImage: string | null;
+    className?: string;
+    label?: React.ReactNode;
+    displayImage?: boolean;
+    aspectRatio?: number;
 }) {
     const [image, setImage] = useState<string | null>(null);
     const [croppedImage, setCroppedImage] = useState<string | null>(
-        currentImage
+        currentImage,
     );
     const [error, setError] = useState<string | null>(null);
 
@@ -28,7 +36,7 @@ export default function ImageCropper({
 
         if (files[0].size > maxSizeInBytes) {
             setError(
-                "El archivo seleccionado es demasiado grande (Máximo 2MB)"
+                "El archivo seleccionado es demasiado grande (Máximo 2MB)",
             );
             return;
         }
@@ -51,25 +59,35 @@ export default function ImageCropper({
         <div>
             <label
                 htmlFor={inputFileCroppId}
-                className="bg-white border-b-4 border-b-neutral-500 rounded-md py-1 px-2 mt-3 md:mt-4 items-center w-fit text-neutral-800 flex gap-2"
+                className={
+                    className
+                        ? className
+                        : "bg-white border-b-4 border-b-neutral-500 rounded-md py-1 px-2 mt-3 md:mt-4 items-center w-fit text-neutral-800 flex gap-2"
+                }
             >
-                <span>Imagen</span>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#1d0b0b"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    <path d="M15 8h.01" />
-                    <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
-                    <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-                    <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-                </svg>
+                {label ? (
+                    label
+                ) : (
+                    <>
+                        <span>Imagen</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#1d0b0b"
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M15 8h.01" />
+                            <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
+                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+                            <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+                        </svg>
+                    </>
+                )}
             </label>
             <input
                 type="file"
@@ -92,8 +110,8 @@ export default function ImageCropper({
                                 maxWidth: 700,
                                 maxHeight: "100%",
                             }}
-                            initialAspectRatio={16 / 9}
-                            aspectRatio={16 / 9}
+                            initialAspectRatio={aspectRatio}
+                            aspectRatio={aspectRatio}
                             guides={false}
                             minCropBoxHeight={150}
                             minCropBoxWidth={150}
@@ -112,7 +130,7 @@ export default function ImageCropper({
                     </div>
                 </div>
             )}
-            {croppedImage && (
+            {croppedImage && displayImage && (
                 <img
                     src={croppedImage}
                     alt="Imagen para el quiz"
