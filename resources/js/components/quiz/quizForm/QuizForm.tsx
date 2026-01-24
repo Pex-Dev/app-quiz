@@ -46,21 +46,6 @@ export default function QuizForm({ title }: { title: string }) {
         setData("image", croppedImage);
     };
 
-    const errorImage = (error: string) => {
-        const errorsList = error.split("|");
-        return (
-            <>
-                {errorsList.map((e) =>
-                    e.includes("image_error") ? (
-                        <ErrorText> {e.replace("image_error", "")} </ErrorText>
-                    ) : (
-                        ""
-                    )
-                )}
-            </>
-        );
-    };
-
     useEffect(() => {
         if (props.flash.success) {
             alertWithRedirect("Listo", "/", props.flash.success);
