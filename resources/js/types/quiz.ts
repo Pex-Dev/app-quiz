@@ -16,6 +16,7 @@ export type Quiz = {
     id: string | number;
     user_id: string | number;
     name: string;
+    slug: string;
     description: string;
     isPublic: boolean;
     category_id: string | number;

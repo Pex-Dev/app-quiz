@@ -12,7 +12,8 @@ class Quiz extends Model
         'description',
         'isPublic',
         'category_id',
-        'image'
+        'image',
+        'slug'
     ];
 
     public function User(){

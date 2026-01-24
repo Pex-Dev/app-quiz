@@ -6,7 +6,10 @@ export default function ButtonEditQuiz() {
     const { quiz } = useQuizPlay();
     return (
         <Link
-            href={route("quiz.edit", quiz.id)}
+            href={route("quiz.edit", {
+                quiz: quiz.id,
+                slug: quiz.slug,
+            })}
             aria-label="Editar este quiz"
             title="Editar este quiz"
             className="absolute right-2 bg-white p-1 rounded-full border-b-2 border-b-neutral-300 top-2 hover:cursor-pointer z-1"

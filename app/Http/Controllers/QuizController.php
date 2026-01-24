@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class QuizController extends Controller
@@ -67,7 +68,11 @@ class QuizController extends Controller
         ]);
     }
 
-    public function show(Quiz $quiz){
+    public function show(Quiz $quiz, $slug){
+        if($quiz->slug != $slug){
+            return redirect("/quiz/{$quiz->id}-{$quiz->slug}", 301);
+        }
+
         $quiz->load(['user', 'questions.answers'])->loadCount([
             'likes as likes_count' => function ($query){
                 $query -> where('like',1);
@@ -121,7 +126,8 @@ class QuizController extends Controller
             "description" => $data["description"],
             "isPublic" => $data["public"],
             "category_id" => $data["category"],
-            "image" => $request->filled("image") ? $imageName : null
+            "image" => $request->filled("image") ? $imageName : null,
+            "slug" => Str::slug($data["name"])
         ]);
 
         //Guardar preguntas y respuestas
@@ -130,14 +136,16 @@ class QuizController extends Controller
         return back() ->with('success', 'Quiz creado correctamente');
     }
 
-    public function edit($id){
-        $user =  auth() -> user();
-        $quiz = Quiz::with(["Category","Questions.Answers"]) -> find($id);
+    public function edit(Quiz $quiz, $slug){
+        if($quiz->slug != $slug){
+            return redirect("/quiz/{$quiz->id}-{$quiz->slug}/edit", 301);
+        }
 
-        if($quiz){
-            if($quiz["user_id"] != $user["id"]){
-                return redirect("/");
-            }
+        $user =  auth() -> user();
+        $quiz->load(['category', 'questions.answers']);
+
+        if($quiz["user_id"] != $user["id"]){
+            return redirect("/");
         }
 
         return Inertia::render("quiz/Update",[
@@ -175,6 +183,7 @@ class QuizController extends Controller
         $quiz["description"] = $request["description"];
         $quiz["isPublic"] = $request["public"];
         $quiz["category_id"] = $request["category"];
+        $quiz["slug"] = Str::slug($request["name"]);
         
         if($request -> filled("image")){
             $quiz["image"] = $data["image"] !== $quiz->image ? $imageName : $quiz->image;

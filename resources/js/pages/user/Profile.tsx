@@ -10,7 +10,14 @@ const Profile = (props: { user: User }) => {
 
     const quizLink = (quiz: Quiz, key: number) => {
         return (
-            <Link href={route("quiz", quiz.id)} key={key} className="h-fit">
+            <Link
+                href={route("quiz", {
+                    quiz: quiz.id,
+                    slug: quiz.slug,
+                })}
+                key={key}
+                className="h-fit"
+            >
                 <img
                     src={
                         quiz.image
