@@ -42,6 +42,7 @@ export type User = {
     quizzes_count: number;
     liked_quizzes: Quiz[];
     liked_quizzes_count: number;
+    biography: string | null;
 };
 
 export interface Link {
