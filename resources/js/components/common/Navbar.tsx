@@ -229,7 +229,7 @@ export default function Navbar() {
                                 <img
                                     src={
                                         auth.user.image
-                                            ? ""
+                                            ? `/uploads/${auth.user.image}`
                                             : "/images/icons/icon_user.png"
                                     }
                                     alt={`Imagen de perfil de ${auth.user.name}`}
