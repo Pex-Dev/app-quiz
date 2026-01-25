@@ -14,7 +14,11 @@ export default function QuizCreator({ quiz }: { quiz: Quiz }) {
                 href={route("profile", user.name)}
             >
                 <img
-                    src="/images/icons/icon_user.png"
+                    src={
+                        user.image
+                            ? `/uploads/${user.image}`
+                            : "/images/icons/icon_user.png"
+                    }
                     alt="Icono de usuario"
                     className="min-w-12 w-12 aspect-square rounded-full overflow-hidden border border-gray-500 "
                 />
