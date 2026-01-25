@@ -17,7 +17,10 @@ export default function SearchResults({
                     {results.map((quiz) => (
                         <li key={quiz.id}>
                             <Link
-                                href={route("quiz", quiz.id)}
+                                href={route("quiz", {
+                                    quiz: quiz.id,
+                                    slug: quiz.slug,
+                                })}
                                 onClick={() => setText("")}
                                 className="flex gap-2"
                             >
