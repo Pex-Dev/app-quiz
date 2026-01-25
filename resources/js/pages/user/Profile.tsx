@@ -7,7 +7,6 @@ import { route } from "ziggy-js";
 const Profile = (props: { user: User }) => {
     const { user } = props;
     const { auth } = usePage().props;
-    console.log(user);
 
     const quizLink = (quiz: Quiz, key: number) => {
         return (
