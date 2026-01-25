@@ -16,9 +16,9 @@ export default function AnswerInput({
         <li
             className={`${
                 answer.is_correct
-                    ? "bg-green-600 border-green-900"
-                    : "bg-cyan-800 border-cyan-950"
-            } rounded flex justify-between overflow-hidden md:gap-2 border-b-2`}
+                    ? "bg-green-400 border-green-600"
+                    : "bg-white border-neutral-400"
+            } rounded-md flex justify-between overflow-hidden md:gap-2 border`}
         >
             <div className="w-full flex flex-col md:flex-row justify-between gap-2">
                 <div className="w-full">
@@ -33,7 +33,7 @@ export default function AnswerInput({
                         }}
                         disabled={processing}
                         required={true}
-                        className="bg-transparent text-white  focus:bg-white/10 w-full"
+                        className="bg-transparent text-black focus:bg-white/10 w-full"
                         id={String(answer.id)}
                         value={answer.answer_text}
                     />
@@ -57,7 +57,7 @@ export default function AnswerInput({
                             is_correct: true,
                         });
                     }}
-                    className="flex gap-1 items-center px-2 md:px-0 pb-2 md:pb-0"
+                    className="flex gap-1 items-center px-2 md:px-0 pb-2 md:pb-0 text-black"
                 >
                     <span>{answer.is_correct ? "Correcta" : "Incorrecta"}</span>
                     {answer.is_correct ? (
@@ -89,7 +89,7 @@ export default function AnswerInput({
                 className={` transition-colors px-1 ${
                     processing
                         ? "bg-amber-800/20 text-white/20"
-                        : "bg-amber-800 text-white hover:bg-amber-700"
+                        : "bg-red-500 text-white hover:bg-amber-700"
                 }`}
             >
                 <svg
