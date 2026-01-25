@@ -29,10 +29,10 @@ export default function QuestionInput({
 
     return (
         <li
-            className={`relative p-2 md:p-3 lg:p-5 flex flex-col md:flex-row gap-2 bg-cyan-700 text-white py-3 rounded md:rounded-md justify-between ${
+            className={`relative p-2 md:p-3 lg:p-5 flex flex-col md:flex-row gap-2 border-2 border-dotted bg-amber-50 text-white py-3 rounded md:rounded-xl justify-between shadow-lg ${
                 errors.questions?.includes(String(question.id))
                     ? "border-2 border-red-700"
-                    : "border-b-5 border-b-cyan-950"
+                    : "border-2 border-neutral-500"
             }`}
         >
             <div className="flex flex-col w-full">
@@ -45,7 +45,7 @@ export default function QuestionInput({
                     <header className="w-full">
                         {/*--------------------------------------------- INPUT PREGUNTA --------------------------------------------------*/}
                         <label
-                            className="text-white"
+                            className="text-black"
                             htmlFor={String(question.id)}
                         >
                             Texto de la pregunta
@@ -66,7 +66,8 @@ export default function QuestionInput({
                             disabled={processing}
                             required={true}
                             maxLength={150}
-                            className="min-h-auto mt-2"
+                            placeholder="Ingresa tu pregunta"
+                            className="min-h-auto mt-2 bg-white"
                         />
                         {errors[`questions.${index}.question_text`] && (
                             <ErrorText>
@@ -127,10 +128,12 @@ export default function QuestionInput({
                     disabled={question.order <= 0}
                     onClick={() => moveQuestionUp(question)}
                     type="button"
+                    title="Mover la pregunta"
+                    aria-label="Mover la pregunta"
                     className={`block w-fit ${
                         question.order <= 1
-                            ? "text-white/10"
-                            : "text-white hover:cursor-pointer"
+                            ? "text-black/10"
+                            : "text-black hover:cursor-pointer"
                     }`}
                 >
                     <svg
@@ -147,19 +150,21 @@ export default function QuestionInput({
                         <path d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
                     </svg>
                 </button>
-                <span className="text-white uppercase font-semibold text-center text-2xl">
+                <span className="text-neutral-500 uppercase font-semibold text-center text-2xl">
                     {question.order}
                 </span>
                 <button
                     disabled={
                         question.order >= questions[questions.length - 1].order
                     }
+                    title="Mover la pregunta"
+                    aria-label="Mover la pregunta"
                     onClick={() => moveQuestionDown(question)}
                     type="button"
                     className={`block w-fit ${
                         question.order >= questions[questions.length - 1].order
-                            ? "text-white/10"
-                            : "text-white"
+                            ? "text-black/10"
+                            : "text-black"
                     }`}
                 >
                     <svg
