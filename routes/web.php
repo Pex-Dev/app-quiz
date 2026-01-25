@@ -17,9 +17,11 @@ Route::post('/login',[AuthController::class,'store']);
 Route::post('/logout',[AuthController::class,'destroy']) -> middleware('auth') -> name('logout');
 
 //Profile
-Route::get('/users/{user:name}',[ProfileController::class,'show'])->name('profile');
-Route::get('/users/{user:name}/quizzes',[ProfileController::class,'quizzes'])->name('profile.quizzes');
-Route::get('/users/{user:name}/likes',[ProfileController::class,'likes'])->name('profile.likes');
+Route::get('/user/{user:name}',[ProfileController::class,'show'])->name('profile');
+Route::get('/user/{user:name}/quizzes',[ProfileController::class,'quizzes'])->name('profile.quizzes');
+Route::get('/user/{user:name}/likes',[ProfileController::class,'likes'])->name('profile.likes');
+Route::get('/user/{user:name}/edit',[ProfileController::class,'edit'])->name('profile.edit') -> middleware(['auth','verified']);
+Route::post('/user/{user}',[ProfileController::class,'update'])->name('profile.update') -> middleware(['auth','verified']);
 
 //Register
 Route::get('/register',[RegisterController::class,'index']) -> name('register');
