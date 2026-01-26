@@ -1,10 +1,19 @@
 import Layout from "@/components/Layout";
 import { Results, User } from "@/types/quiz";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import QuizCard from "@/components/quiz/QuizCard";
+import { useEffect } from "react";
+import { alert } from "@/utilities/SweetAlert";
 
-const Quizzes = (props: { user: User; results: Results }) => {
-    const { results, user } = props;
+const Quizzes = (customProps: { user: User; results: Results }) => {
+    const { results, user } = customProps;
+    const { props } = usePage();
+
+    useEffect(() => {
+        if (props.flash.success) {
+            alert("Listo", props.flash.success);
+        }
+    }, [props]);
 
     const replaceSymbol = (symbol: string): string => {
         if (symbol.includes("&raquo;")) {
