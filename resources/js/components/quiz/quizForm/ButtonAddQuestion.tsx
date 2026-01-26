@@ -17,11 +17,7 @@ export default function ButtonAddQuestion({
 
     return (
         <div
-            className={`w-full flex  rounded md:rounded-md overflow-hidden border mt-1 ${
-                disabled || processing
-                    ? "border-cyan-700/20"
-                    : "border-cyan-700"
-            }`}
+            className={`w-full flex rounded md:rounded-md overflow-hidden border border-neutral-300`}
         >
             <input
                 type="text"
@@ -41,7 +37,7 @@ export default function ButtonAddQuestion({
                 className={`w-full outline-0 p-2 ${
                     processing || disabled
                         ? "bg-white/10 text-black/20"
-                        : "bg-white"
+                        : "bg-neutral-200"
                 }`}
             />
             <button
@@ -55,8 +51,8 @@ export default function ButtonAddQuestion({
                 }}
                 className={`border-l text-white px-1 transition-colors ${
                     processing || disabled
-                        ? "bg-cyan-800/30 border-l-cyan-700/20"
-                        : "bg-cyan-800 hover:bg-cyan-700 hover:cursor-pointer border-l-cyan-700"
+                        ? "bg-amber-500/30 border-l-neutral-400/20"
+                        : "bg-amber-500 hover:bg-amber-300 hover:cursor-pointer border-l-neutral-400"
                 }`}
             >
                 <svg

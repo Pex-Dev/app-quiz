@@ -1,5 +1,5 @@
 import { useQuizForm } from "@/context/QuizFormContext";
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 import InputText from "@/components/ui/InputText";
 import InputSelect from "@/components/ui/InputSelect";
 import TextArea from "@/components/ui/TextArea";
@@ -17,7 +17,6 @@ import backgroundsImages from "@/utilities/BackgroundCategories";
 export default function QuizForm({ title }: { title: string }) {
     const { submitForm, form } = useQuizForm();
     const { errors, setData, data, processing } = form;
-
     const { props } = usePage();
 
     const nameId = useId();
@@ -53,7 +52,7 @@ export default function QuizForm({ title }: { title: string }) {
     }, [props]);
 
     return (
-        <div className="bg-neutral-700 border-b-5 border-b-neutral-900 md:rounded-2xl w-full md:max-w-xl lg:max-w-2xl font-nunito shadow-xl shadow-black-60 overflow-hidden">
+        <div className="bg-white border-b-5 border-b-neutral-400 md:rounded-2xl w-full md:max-w-2xl lg:max-w-6xl font-nunito shadow-xl shadow-black-60 overflow-hidden md:my-7 lg:my-10">
             <header
                 className="relative min-h-[100px] bg-center bg-repeat bg-size-[80%] md:bg-size-[50%] "
                 style={{
@@ -62,8 +61,8 @@ export default function QuizForm({ title }: { title: string }) {
                     })`,
                 }}
             >
-                <div className="absolute w-full h-full  bg-linear-to-r from-neutral-700 to-transparent p-3 md:p-4 lg:p-5">
-                    <h2 className="text-white uppercase font-semibold text-xl md:text-2xl text-shadow-lg text-shadow-black/30">
+                <div className="absolute w-full h-full bg-linear-to-t from-white to-white/50 p-3 md:p-4 lg:p-5">
+                    <h2 className="text-white uppercase font-semibold text-xl md:text-2xl text-shadow-lg text-shadow-black/80">
                         {title}
                     </h2>
                 </div>
@@ -76,79 +75,97 @@ export default function QuizForm({ title }: { title: string }) {
                     submitForm();
                 }}
             >
-                <div className="flex flex-col gap-1">
-                    <label className="text-white" htmlFor={nameId}>
-                        Nombre del quiz
-                    </label>
-                    <InputText
-                        type="text"
-                        name="name"
-                        id={nameId}
-                        value={data.name}
-                        required={true}
-                        maxLength={30}
-                        onChange={(e) => setData("name", e.target.value)}
-                    />
-                    {errors.name && <ErrorText>{errors.name}</ErrorText>}
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
-                    <div className="flex flex-col gap-1">
-                        <label className="text-white" htmlFor={nameId}>
-                            Categoría
-                        </label>
-                        <InputSelect
-                            name="category"
-                            ariaLabel="Categoría"
-                            search={false}
-                            value={String(data.category)}
-                            onChange={(e, value) => {
-                                setData("category", value);
-                            }}
-                            options={categoriesOptions}
-                        />
-                        {errors.category && (
-                            <ErrorText>{errors.category}</ErrorText>
-                        )}
+                <div className="flex flex-col lg:flex-row-reverse gap-4">
+                    <div className="w-full">
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor={nameId}>Nombre del quiz</label>
+                            <InputText
+                                type="text"
+                                name="name"
+                                id={nameId}
+                                value={data.name}
+                                required={true}
+                                maxLength={30}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
+                                className="bg-neutral-200"
+                            />
+                            {errors.name && (
+                                <ErrorText>{errors.name}</ErrorText>
+                            )}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor={nameId}>Categoría</label>
+                                <InputSelect
+                                    name="category"
+                                    ariaLabel="Categoría"
+                                    search={false}
+                                    value={String(data.category)}
+                                    onChange={(e, value) => {
+                                        setData("category", value);
+                                    }}
+                                    options={categoriesOptions}
+                                />
+                                {errors.category && (
+                                    <ErrorText>{errors.category}</ErrorText>
+                                )}
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor={nameId}>Visibilidad</label>
+                                <InputSelect
+                                    name="is_public"
+                                    ariaLabel="Visibilidad"
+                                    search={false}
+                                    value={data.public ? "1" : "0"}
+                                    onChange={(e, value) =>
+                                        setData(
+                                            "public",
+                                            value === "1" ? true : false,
+                                        )
+                                    }
+                                    options={visibiltyOptions}
+                                />
+                                {errors.category && (
+                                    <ErrorText>{errors.category}</ErrorText>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1 mt-4">
+                            <label htmlFor={nameId}>
+                                Descripción del quiz
+                                <span className="text-neutral-400">
+                                    {" "}
+                                    (Opcional)
+                                </span>
+                            </label>
+                            <TextArea
+                                maxLength={500}
+                                onChange={(e) =>
+                                    setData("description", e.target.value)
+                                }
+                                className="bg-neutral-200"
+                            />
+                            {errors.description && (
+                                <ErrorText>{errors.description}</ErrorText>
+                            )}
+                        </div>
                     </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-white" htmlFor={nameId}>
-                            Visibilidad
-                        </label>
-                        <InputSelect
-                            name="is_public"
-                            ariaLabel="Visibilidad"
-                            search={false}
-                            value={data.public ? "1" : "0"}
-                            onChange={(e, value) =>
-                                setData("public", value === "1" ? true : false)
+                    <div className="w-full lg:max-w-md">
+                        <ImageCropper
+                            handleCroppedImage={handleCroppedImage}
+                            currentImage={
+                                data.image ? `/uploads/${data.image}` : null
                             }
-                            options={visibiltyOptions}
+                            className="bg-neutral-50 mt-3 hover:cursor-pointer hover:bg-white outline outline-neutral-400 border-b-3 border-b-neutral-300 py-1 px-3 flex items-center gap-1 w-fit rounded-md"
                         />
-                        {errors.category && (
-                            <ErrorText>{errors.category}</ErrorText>
-                        )}
+                        {errors.image && <ErrorText>{errors.image}</ErrorText>}
                     </div>
-                </div>
-                <ImageCropper
-                    handleCroppedImage={handleCroppedImage}
-                    currentImage={data.image ? `/uploads/${data.image}` : null}
-                />
-                {errors.image && <ErrorText>{errors.image}</ErrorText>}
-                <div className="flex flex-col gap-1 mt-4">
-                    <label className="text-white" htmlFor={nameId}>
-                        Descripción del quiz
-                        <span className="text-neutral-400"> (Opcional)</span>
-                    </label>
-                    <TextArea
-                        maxLength={500}
-                        onChange={(e) => setData("description", e.target.value)}
-                    />
-                    {errors.description && (
-                        <ErrorText>{errors.description}</ErrorText>
-                    )}
                 </div>
                 <QuestionListContainer />
-                <div className="flex mt-5 pt-3 border-t border-neutral-500">
+                <div className="flex mt-5 pt-3">
                     <Button
                         type="submit"
                         disabled={processing}

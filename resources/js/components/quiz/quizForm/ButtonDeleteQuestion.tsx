@@ -15,10 +15,8 @@ export default function ButtonDeleteQuestion({
             aria-label={`Borrar pregunta ${question.question_text}`}
             title={`Borrar pregunta ${question.question_text}`}
             disabled={processing}
-            className={`absolute -top-2 -right-2 rounded-full shadow-xl shadow-black/30 transition-colors  ${
-                processing
-                    ? "bg-amber-900 border border-x-red-900/20 border-t-red-900/20 border-b-3 border-b-red-950/20 text-white/20"
-                    : "bg-amber-800 border border-x-red-900 border-t-red-900 border-b-3 border-b-red-950 hover:bg-amber-700 hover:cursor-pointer"
+            className={`absolute -top-2 -right-2 rounded-full shadow-md shadow-black/40 transition-colors hover:cursor-pointer ${
+                processing ? "bg-amber-900 text-white/20" : "bg-red-500 "
             }`}
             onClick={() => deleteQuestion(question.id)}
         >

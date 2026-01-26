@@ -1,5 +1,5 @@
 import { useQuizForm } from "@/context/QuizFormContext";
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import QuestionInput from "./QuestionInput";
 import ErrorText from "@/components/common/TextError";
 import ButtonAddQuestion from "./ButtonAddQuestion";
@@ -46,31 +46,16 @@ export default function QuestionListContainer() {
         </svg>
     );
 
-    const errorNoQuestions = (error: string) => {
-        const errorsList = error.split("|");
-        return (
-            <>
-                {errorsList.map((e) =>
-                    e.includes("no_questions") ? (
-                        <ErrorText> {e.replace("no_questions", "")} </ErrorText>
-                    ) : (
-                        ""
-                    )
-                )}
-            </>
-        );
-    };
-
     return (
         <div>
             <div className="flex items-center gap-2 mt-7">
-                <h2 className="text-white uppercase">Preguntas</h2>
+                <h2 className="uppercase">Preguntas</h2>
                 <span className="block h-0.5 border w-full text-neutral-500"></span>
                 <span
                     className={
                         questions.length === maxQuestionNumber
                             ? "text-red-600"
-                            : "text-white"
+                            : "text-black"
                     }
                 >
                     {`${questions.length}/${maxQuestionNumber}`}
@@ -88,7 +73,7 @@ export default function QuestionListContainer() {
                                 ? "Ocultar lista de respuestas"
                                 : "Mostrar lista de respuestas"
                         }
-                        className="p-0.5 text-white"
+                        className="p-0.5"
                         onClick={() => setShowList((p) => !p)}
                     >
                         {!showList ? arrowDown : arrowUp}

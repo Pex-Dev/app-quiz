@@ -46,7 +46,7 @@ export default function AnswersListContainer({
             }`}
         >
             <header className="flex w-full items-center">
-                <h3 className="mb-1">Respuestas</h3>
+                <h3 className="mb-1 text-black">Respuestas</h3>
                 <span className="ml-2 block border-b w-full text-neutral-500"></span>
                 <button
                     type="button"
@@ -60,7 +60,7 @@ export default function AnswersListContainer({
                             ? "Ocultar lista de respuestas"
                             : "Mostrar lista de respuestas"
                     }
-                    className="p-0.5"
+                    className="p-0.5 text-black"
                     onClick={() => setShowList((p) => !p)}
                 >
                     {!showList ? arrowDown : arrowUp}
