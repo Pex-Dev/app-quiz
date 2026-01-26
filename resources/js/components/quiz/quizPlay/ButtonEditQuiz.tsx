@@ -12,7 +12,7 @@ export default function ButtonEditQuiz() {
             })}
             aria-label="Editar este quiz"
             title="Editar este quiz"
-            className="absolute right-2 bg-white p-1 rounded-full border-b-2 border-b-neutral-300 top-2 hover:cursor-pointer z-1"
+            className=" bg-white p-1 rounded-full border-b-2 border-b-neutral-300 top-2 hover:cursor-pointer z-1"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

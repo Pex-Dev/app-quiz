@@ -51,9 +51,10 @@ Route::get('/quiz/create',[QuizController::class,'create']) -> name('quiz.create
 Route::get('/quiz/{quiz}-{slug}',[QuizController::class,'show']) -> name('quiz');
 Route::post('/quiz',[QuizController::class,'store'])-> name('quiz.store') -> middleware(['auth','verified']);
 Route::get('/quiz/{quiz}-{slug}/edit',[QuizController::class,'edit']) -> name('quiz.edit') -> middleware(['auth','verified']);
-Route::post('/quiz/{quiz}',[QuizController::class,'update']) -> name('quiz.update') -> middleware(['auth','verified']);
+Route::post('/quiz/{quiz}/update',[QuizController::class,'update']) -> name('quiz.update') -> middleware(['auth','verified']);
 Route::post('/quiz/{quiz}/set-complete',[QuizController::class,'setCompleted']) -> name('quiz.completed') -> middleware(['auth','verified']);
 Route::post('/quiz/{quiz}/set-like',[QuizController::class,'setLike'])->name('quiz.like')->middleware('auth','verified');
+Route::post('/quiz/{quiz}/delete',[QuizController::class,'destroy'])->name('quiz.destroy')->middleware('auth','verified');
 
 //Search
 Route::get('search/{search}',[SearchController::class,'index']) ->name('search.index');

@@ -22,7 +22,7 @@ const alertClass = {
 export function alert(
     title: string,
     text: string | undefined = "",
-    icon: SweetAlertIcon = "success"
+    icon: SweetAlertIcon = "success",
 ) {
     MySwal.fire({
         title: title,
@@ -37,7 +37,7 @@ export function alertWithRedirect(
     title: string,
     url: string,
     text: string | undefined = "",
-    icon: SweetAlertIcon = "success"
+    icon: SweetAlertIcon = "success",
 ) {
     MySwal.fire({
         title: title,
@@ -58,7 +58,7 @@ export function alertWithCallback(
     callback: (...args: any[]) => any,
     text: string | undefined = "",
     icon: SweetAlertIcon = "success",
-    cancelButton: boolean = false
+    cancelButton: boolean = false,
 ) {
     MySwal.fire({
         title: title,
