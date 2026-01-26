@@ -6,11 +6,13 @@ import { usePage } from "@inertiajs/react";
 import QuizIdle from "./QuizIdle";
 import ButtonEditQuiz from "./ButtonEditQuiz";
 import { useLayoutEffect, useRef, useState } from "react";
+import ButtonDeleteQuiz from "./ButtonDeleteQuiz";
 
 export default function QuizBoard() {
     const [height, setHeight] = useState(0);
     const { quiz, quizState } = useQuizPlay();
-    const { auth } = usePage().props;
+    const { props } = usePage();
+    const { auth } = props;
 
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -32,8 +34,8 @@ export default function QuizBoard() {
                 <header
                     className={`relative min-h-60 w-full  ${
                         quiz.image
-                            ? "bg-no-repeat bg-size-[100%] bg-center"
-                            : "bg-repeat bg-size-[80%] md:bg-size-[100%] bg-center"
+                            ? "bg-no-repeat bg-cover bg-center"
+                            : "bg-repeat bg-cover bg-center"
                     }`}
                     style={{
                         backgroundImage: `url(${
@@ -45,9 +47,14 @@ export default function QuizBoard() {
                         })`,
                     }}
                 >
-                    {auth?.user && quiz.user_id === auth.user.id && (
-                        <ButtonEditQuiz />
-                    )}
+                    {auth?.user &&
+                        quiz.user_id === auth.user.id &&
+                        quizState === "idle" && (
+                            <div className="absolute right-3 top-3 flex gap-2">
+                                <ButtonEditQuiz />
+                                <ButtonDeleteQuiz />
+                            </div>
+                        )}
                     <div
                         className={`absolute w-full h-full from-15% bg-linear-to-t from-white px-3 pt-3 flex flex-col justify-end mb-3 ${
                             quiz.image ? "to-white/10" : "to-white/60"
