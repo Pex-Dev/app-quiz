@@ -30,9 +30,9 @@ export default function QuizBoard() {
         >
             <div ref={contentRef}>
                 <header
-                    className={`relative min-h-40 w-full  ${
+                    className={`relative min-h-60 w-full  ${
                         quiz.image
-                            ? "bg-no-repeat bg-size-[100%] bg-top"
+                            ? "bg-no-repeat bg-size-[100%] bg-center"
                             : "bg-repeat bg-size-[80%] md:bg-size-[100%] bg-center"
                     }`}
                     style={{

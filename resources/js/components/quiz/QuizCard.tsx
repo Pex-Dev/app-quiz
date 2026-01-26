@@ -78,7 +78,7 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
             <header
                 className={`relative min-h-32 w-full  ${
                     quiz.image
-                        ? "bg-no-repeat bg-size-[100%] bg-top"
+                        ? "bg-no-repeat bg-size-[100%] bg-center"
                         : "bg-repeat bg-size-[80%] md:bg-size-[100%] bg-center"
                 }`}
                 style={{
