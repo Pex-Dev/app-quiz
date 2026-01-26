@@ -199,6 +199,22 @@ class QuizController extends Controller
         return back() ->with('success', 'Quiz actualizado correctamente');
     }
 
+    public function destroy(Quiz $quiz){
+        $authUser = auth()->user();
+        if($quiz -> user_id != $authUser -> id)return redirect("/");
+
+        //Eliminar imagen
+        if ($quiz->image) {
+            //Verificar que la imagen exista y eliminarla
+            if(File::exists("uploads/".$quiz->image)){
+                File::delete("uploads/".$quiz->image);
+            }   
+        }
+
+        $quiz -> delete();
+        return redirect() ->route('profile.quizzes',$authUser -> name) ->with('success', 'Quiz eliminado correctamente');
+    }
+
     public function setCompleted(Quiz $quiz){
         $user = auth()->user();
 
