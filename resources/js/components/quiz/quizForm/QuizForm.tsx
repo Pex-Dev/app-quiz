@@ -51,6 +51,19 @@ export default function QuizForm({ title }: { title: string }) {
         }
     }, [props]);
 
+    //Hacer scroll hacia mensajes de error
+    useEffect(() => {
+        const errorsArray = Object.entries(errors);
+        if (errorsArray.length > 0) {
+            const errorP = Array.from(document.querySelectorAll("p")).find(
+                (p) => p.textContent.trim() === errorsArray[0][1],
+            );
+            if (errorP) {
+                errorP.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        }
+    }, [errors]);
+
     return (
         <div className="bg-white border-b-5 border-b-neutral-400 md:rounded-2xl w-full md:max-w-2xl lg:max-w-6xl font-nunito shadow-xl shadow-black-60 overflow-hidden md:my-7 lg:my-10">
             <header
@@ -153,7 +166,10 @@ export default function QuizForm({ title }: { title: string }) {
                             )}
                         </div>
                     </div>
-                    <div className="w-full lg:max-w-md">
+                    <div className="relative w-full lg:max-w-md">
+                        <p className="absolute top-7 left-30 text-neutral-400">
+                            (Opcional)
+                        </p>
                         <ImageCropper
                             handleCroppedImage={handleCroppedImage}
                             currentImage={
@@ -161,6 +177,9 @@ export default function QuizForm({ title }: { title: string }) {
                             }
                             className="bg-neutral-50 mt-3 hover:cursor-pointer hover:bg-white outline outline-neutral-400 border-b-3 border-b-neutral-300 py-1 px-3 flex items-center gap-1 w-fit rounded-md"
                         />
+                        {data.image === null && (
+                            <div className="bg-gray-200 w-full h-60 mt-4 rounded-md"></div>
+                        )}
                         {errors.image && <ErrorText>{errors.image}</ErrorText>}
                     </div>
                 </div>
