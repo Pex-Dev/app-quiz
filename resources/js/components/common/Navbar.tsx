@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import SearchBar from "../ui/SearchBar";
@@ -10,12 +10,26 @@ export default function Navbar() {
 
     const { auth } = usePage().props;
     const headerRef = useRef<HTMLElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
         if (headerRef.current) {
             setDevice(window.innerWidth < 1024 ? "mobile" : "desktop");
         }
     });
+
+    useEffect(() => {
+        const handleMouseDown = (event: any) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleMouseDown);
+        return () => {
+            document.removeEventListener("mousedown", handleMouseDown);
+        };
+    }, [menuRef]);
 
     return (
         <>
@@ -116,6 +130,7 @@ export default function Navbar() {
                     </div>
                     {/* Menú */}
                     <div
+                        ref={menuRef}
                         className={`flex flex-col lg:flex-row lg:items-center lg:gap-4 absolute lg:static left-0 top-0 w-3/4 md:w-2/5 lg:w-full min-h-dvh lg:min-h-fit bg-neutral-800 lg:bg-transparent shadow-2xl shadow-black lg:shadow-none transition-all duration-500 ${
                             showMenu
                                 ? "translate-x-0"
@@ -160,7 +175,7 @@ export default function Navbar() {
                         </header>
                         <nav>
                             <ul className="flex flex-col jus lg:flex-row gap-3 lg:gap-5">
-                                <li className="text-white text-center">
+                                <li className="text-white hover:text-green-300 text-center group w-fit mx-auto">
                                     <Link
                                         href={route("quiz.index")}
                                         onClick={() => setShowMenu(false)}
@@ -171,12 +186,13 @@ export default function Navbar() {
                                                   ? 0
                                                   : -1
                                         }
-                                        className="whitespace-nowrap"
+                                        className="whitespace-nowrap hover:text-shadow-md hover:text-shadow-green-200/40"
                                     >
                                         Quizzes Nuevos
                                     </Link>
+                                    <span className="block h-0.5 w-0 transition-all group-hover:w-full bg-green-300 mx-auto"></span>
                                 </li>
-                                <li className="text-white text-center">
+                                <li className="text-white hover:text-green-300 text-center group w-fit mx-auto">
                                     <Link
                                         href={route("quiz.index", {
                                             order: "like",
@@ -189,17 +205,18 @@ export default function Navbar() {
                                                   ? 0
                                                   : -1
                                         }
-                                        className="whitespace-nowrap"
+                                        className="whitespace-nowrap hover:text-shadow-md hover:text-shadow-green-200/40"
                                     >
                                         Quizzes populares
                                     </Link>
+                                    <span className="block h-0.5 w-0 transition-all group-hover:w-full bg-green-300 mx-auto"></span>
                                 </li>
                                 {auth && auth.user && (
-                                    <li className="text-white text-center">
+                                    <li className="text-white hover:text-green-300 text-center group w-fit mx-auto">
                                         <Link
                                             href={route("quiz.create")}
                                             onClick={() => setShowMenu(false)}
-                                            className="whitespace-nowrap"
+                                            className="whitespace-nowrap hover:text-shadow-md hover:text-shadow-green-200/40"
                                             tabIndex={
                                                 device === "desktop"
                                                     ? 0
@@ -210,6 +227,7 @@ export default function Navbar() {
                                         >
                                             Crear quiz
                                         </Link>
+                                        <span className="block h-0.5 w-0 transition-all group-hover:w-full bg-green-300 mx-auto"></span>
                                     </li>
                                 )}
                             </ul>
