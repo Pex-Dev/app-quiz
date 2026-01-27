@@ -104,7 +104,7 @@ export default function QuestionInput({
                     )}
                     {/*--------------------------------------------- BOTÓN AÑADÍR RESPUESTA --------------------------------------------------*/}
                     <label
-                        className="text-white mt-3"
+                        className={`block mt-4 ${question.answers.length === 4 ? "text-neutral-300" : "text-black"}`}
                         htmlFor={inputAddAnswerId}
                     >
                         Añadir respuesta
@@ -113,7 +113,7 @@ export default function QuestionInput({
                         question={question}
                         id={inputAddAnswerId}
                         refInputAnswer={refInputAnswer}
-                        disabled={question.answers.length === 5}
+                        disabled={question.answers.length === 4}
                     />
                 </div>
                 {errors[`questions.${index}.answers`] && (

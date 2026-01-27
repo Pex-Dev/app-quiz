@@ -32,7 +32,7 @@ export default function Button({
         }`,
         secondary: `${
             !disabled
-                ? "text-neutral-700 bg-amber-300 hover:bg-amber-300 focus-visible:bg-amber-300 border-b-5 border-b-amber-800 cursor-pointer rounded-lg font-bold"
+                ? "text-neutral-700 bg-amber-400 text-white text-shadow-md text-shadow-black/40 hover:bg-amber-300 focus-visible:bg-amber-300 border-b-5 border-b-amber-600 cursor-pointer rounded-lg font-bold"
                 : "bg-amber-400/30 text-white/30 rounded-md cursor-default"
         }`,
         danger: `${
@@ -44,7 +44,7 @@ export default function Button({
     const variantClass = variants[variant] ?? variants["primary"];
 
     const finalClassName = twMerge(
-        clsx(base, sizes[sizeVariant], variantClass, className)
+        clsx(base, sizes[sizeVariant], variantClass, className),
     );
 
     return (

@@ -235,6 +235,7 @@ export default function Navbar() {
                                 tabIndex={
                                     device === "desktop" ? 0 : showMenu ? 0 : -1
                                 }
+                                onClick={() => setShowMenu(false)}
                                 className="flex items-center gap-2 max-w-full bg-white border-b-4 border-b-neutral-500 rpunded-md px-2 py-1.5 rounded-md w-fit mx-auto mt-3 lg:mt-0"
                             >
                                 <img
