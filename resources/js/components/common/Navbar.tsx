@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import SearchBar from "../ui/SearchBar";
+import Logo from "./Logo";
 
 export default function Navbar() {
     const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -95,10 +96,7 @@ export default function Navbar() {
                             </svg>
                         </button>
                         <Link href="/" onClick={() => setShowMenu(false)}>
-                            <h1 className="text-3xl font-bold text-white text-shadow-md text-shadow-white/40">
-                                <span className="text-amber-400">Pex</span>
-                                Quizzes
-                            </h1>
+                            <Logo />
                         </Link>
                         <div className="flex gap-3 text-white md:w-full lg:hidden">
                             <div className="pl-4 w-full hidden md:flex md:justify-center lg:hidden">
@@ -165,12 +163,7 @@ export default function Navbar() {
                                 tabIndex={showMenu ? 0 : -1}
                                 onClick={() => setShowMenu(false)}
                             >
-                                <h1 className="text-3xl font-bold text-white text-shadow-md text-shadow-white/40">
-                                    <span className="text-amber-400 w-full">
-                                        Pex
-                                    </span>
-                                    Quizzes
-                                </h1>
+                                <Logo />
                             </Link>
                         </header>
                         <nav>
