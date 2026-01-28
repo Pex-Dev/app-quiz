@@ -20,7 +20,7 @@ class SearchController extends Controller
 
     public function dynamicTextSearch(Request $request){
         $search = $request["search"];
-        $results = Quiz::where('name','LIKE','%'.$search.'%')->limit(10)->get();
+        $results = Quiz::where('name','LIKE','%'.$search.'%')->where('isPublic',1)->limit(10)->get();
         
         return response() -> json($results);
     }
