@@ -1,14 +1,16 @@
 import React, { useId } from "react";
-import { Form } from "@inertiajs/react";
+import { Form, usePage } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 import InputText from "@/components/ui/InputText";
 import Button from "@/components/ui/Button";
 import Layout from "@/components/Layout";
 import { route } from "ziggy-js";
 import ErrorText from "@/components/common/TextError";
+import TextSuccess from "@/components/common/TextSuccess";
 
 const Forgot = () => {
     const emailId = useId();
+    const { props } = usePage();
 
     return (
         <Container title="Reestablecer Contraseña">
@@ -28,6 +30,12 @@ const Forgot = () => {
                             <ErrorText>{errors.throttle}</ErrorText>
                         )}
                         {errors.email && <ErrorText>{errors.email}</ErrorText>}
+                        {props.errors.error && (
+                            <ErrorText>{props.errors.error}</ErrorText>
+                        )}
+                        {props.flash.success && (
+                            <TextSuccess>{props.flash.success}</TextSuccess>
+                        )}
                         <Button type="submit" className="mt-5 py-3">
                             Enviar enlace
                         </Button>
