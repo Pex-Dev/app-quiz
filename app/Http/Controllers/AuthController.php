@@ -19,7 +19,8 @@ class AuthController extends Controller
             'email' => $request['email'],
             'password' => $request['password']
         ])){
-            return redirect('/');
+            $authUser = auth() -> user();
+            return redirect() -> route("profile",$authUser->name);
         }else{
             return back() -> withErrors(['email' => 'email o contraseña incorrectas']);
         }
