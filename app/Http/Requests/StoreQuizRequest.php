@@ -23,7 +23,7 @@ class StoreQuizRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'min:10|max:30',
+            'name' => 'min:10|max:60',
             'description' => 'nullable|min:10|max:500',
             'category' => 'numeric|min:1|max:12',
             'image' => 'nullable|string',

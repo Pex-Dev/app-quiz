@@ -98,7 +98,7 @@ export default function QuizForm({ title }: { title: string }) {
                                 id={nameId}
                                 value={data.name}
                                 required={true}
-                                maxLength={30}
+                                maxLength={60}
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
