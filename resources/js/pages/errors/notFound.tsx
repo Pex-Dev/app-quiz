@@ -1,8 +1,10 @@
 import Layout from "@/components/Layout";
+import { Head } from "@inertiajs/react";
 
 const NotFound = () => {
     return (
         <div className="flex flex-col lg:flex-row items-center lg:items-start lg:gap-20 mx-3 md:px-4">
+            <Head title="Quizium | No encontrado" />
             <h2 className="text-white font-roboto text-[180px] md:text-[250px] lg:text-[300px] lg:min-w-44">
                 :(
             </h2>

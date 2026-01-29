@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 
 const Verify = () => {
     return (
         <Container title="Email Verificado">
+            <Head title="Quizim | Email Verificado" />
             <p className="text-neutral-300 text-sm text-center mt-2">
                 Tu email ha sido verificado correctamente. Ya puedes iniciar
                 sesión y usar la aplicación con normalidad.

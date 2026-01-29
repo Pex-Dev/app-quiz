@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { Form } from "@inertiajs/react";
+import { Form, Head } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 import InputText from "@/components/ui/InputText";
 import Button from "@/components/ui/Button";
@@ -14,6 +14,7 @@ const Reset = (props: { token?: string; email?: string }) => {
 
     return (
         <Container title="Reestablecer Contraseña">
+            <Head title="Quizium | Reestablecer contraseña" />
             <Form action={route("password.update")} method="post">
                 {({ errors, wasSuccessful }) => (
                     <>

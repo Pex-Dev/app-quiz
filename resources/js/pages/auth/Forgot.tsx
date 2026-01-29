@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { Form, usePage } from "@inertiajs/react";
+import { Form, Head, usePage } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 import InputText from "@/components/ui/InputText";
 import Button from "@/components/ui/Button";
@@ -14,6 +14,7 @@ const Forgot = () => {
 
     return (
         <Container title="Reestablecer Contraseña">
+            <Head title="Quizium | Olvide mi contraseña" />
             <Form action={route("password.email")} method="post">
                 {({ errors }) => (
                     <>

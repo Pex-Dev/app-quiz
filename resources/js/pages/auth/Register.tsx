@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 import Layout from "../../components/Layout";
-import { Form, Link } from "@inertiajs/react";
+import { Form, Head, Link } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 import InputText from "@/components/ui/InputText";
 import { route } from "ziggy-js";
@@ -15,6 +15,7 @@ const Register = () => {
 
     return (
         <Container title="Crear Cuenta">
+            <Head title="Quizium | Registrarse" />
             <Form
                 action="/register"
                 className="flex flex-col gap-2 mt-3"

@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Results, User } from "@/types/quiz";
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import QuizCard from "@/components/quiz/QuizCard";
 import { useEffect } from "react";
 import { alert } from "@/utilities/SweetAlert";
@@ -30,6 +30,7 @@ const Quizzes = (customProps: { user: User; results: Results }) => {
 
     return (
         <div className="w-full px-3 max-w-[1440px] mx-auto mt-10">
+            <Head title={`Quizim | Quizzes de ${user.name}`} />
             <h2 className="text-xl text-left md:text-xl font-roboto text-white uppercase font-semibold mb-3">
                 {`Quizzes de ${user.name}`}
             </h2>

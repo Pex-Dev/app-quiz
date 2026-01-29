@@ -4,6 +4,7 @@ import QuizForm from "@/components/quiz/quizForm/QuizForm";
 import QuizProvider from "@/context/QuizFormContext";
 import { Quiz } from "@/types/quiz";
 import Container from "@/components/common/Container";
+import { Head } from "@inertiajs/react";
 
 const Update = (props: { quiz: Quiz | null }) => {
     const { quiz } = props;
@@ -14,6 +15,7 @@ const Update = (props: { quiz: Quiz | null }) => {
 
     return (
         <QuizProvider quiz={quiz}>
+            <Head title={`Quizium | Actualizar ${quiz.name}`} />
             <QuizForm title="Actualizar quiz"></QuizForm>
         </QuizProvider>
     );

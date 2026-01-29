@@ -4,6 +4,7 @@ import { Quiz } from "@/types/quiz";
 import Container from "@/components/common/Container";
 import QuizBoard from "@/components/quiz/quizPlay/QuizBoard";
 import QuizPlayProvider from "@/context/QuizPlayContext";
+import { Head } from "@inertiajs/react";
 
 const Play = (props: { quiz: Quiz | null; created_at: string | null }) => {
     const { quiz, created_at } = props;
@@ -15,6 +16,7 @@ const Play = (props: { quiz: Quiz | null; created_at: string | null }) => {
 
     return (
         <QuizPlayProvider quizProp={quiz}>
+            <Head title={`Quizium | ${quiz.name}`} />
             <QuizBoard />
         </QuizPlayProvider>
     );
