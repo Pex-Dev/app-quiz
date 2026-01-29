@@ -126,7 +126,7 @@ const Profile = (props: { user: User }) => {
     };
 
     return (
-        <div className="bg-white flex-1 md:flex-none md:rounded-2xl p-3 md:p-5 border-neutral-500 border-b-3 md:border-b-4 shadow-2xl w-full md:max-w-[840px]">
+        <div className="bg-white flex-1 md:flex-none md:rounded-2xl p-3 md:p-5 border-neutral-500 border-b-3 md:border-b-4 shadow-2xl w-full md:max-w-[720px] lg:max-w-[840px] md:my-16">
             {/* Información principal del usuario */}
             <header className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-4 md:mt-0">
                 <div className="flex gap-4">

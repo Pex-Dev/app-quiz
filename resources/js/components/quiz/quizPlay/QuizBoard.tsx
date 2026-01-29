@@ -25,7 +25,7 @@ export default function QuizBoard() {
 
     return (
         <div
-            className={`min-w-56 w-full md:max-w-2xl flex flex-col flex-1 md:flex-initial bg-white md:border-b-5 md:border-b-neutral-500 md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500`}
+            className={`min-w-56 w-full md:max-w-2xl md:my-16 flex flex-col flex-1 md:flex-initial bg-white md:border-b-5 md:border-b-neutral-500 md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500`}
             style={{
                 height,
             }}
