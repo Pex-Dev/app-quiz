@@ -4,7 +4,7 @@ import InputSelect from "@/components/ui/InputSelect";
 import SearchBar from "@/components/ui/SearchBar";
 import { Quiz, Results } from "@/types/quiz";
 import getParam from "@/utilities/URLSearchParams";
-import { Link, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { route } from "ziggy-js";
 
@@ -64,6 +64,9 @@ const Index = (props: { results: Results; searchText: string }) => {
 
     return (
         <div className="w-full mt-10 md:my-20">
+            <Head
+                title={`Quizium | ${search.length > 0 ? `Busqueda: ${search}` : "Explorar quizzes"}`}
+            />
             <header className="px-3 md:px-4 lg:px-5 max-w-[1440px] mx-auto flex flex-col justify-between mb-5">
                 {/* Título */}
                 <h2 className="text-xl text-left md:text-2xl font-roboto text-white uppercase font-semibold mb-3">

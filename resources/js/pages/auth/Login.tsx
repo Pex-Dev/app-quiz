@@ -1,7 +1,7 @@
 import React, { useId } from "react";
 import Layout from "../../components/Layout";
 import Container from "../../components/common/Container";
-import { Form, Link } from "@inertiajs/react";
+import { Form, Head, Link } from "@inertiajs/react";
 import InputText from "@/components/ui/InputText";
 import { route } from "ziggy-js";
 import ErrorText from "@/components/common/TextError";
@@ -13,6 +13,7 @@ const Login = () => {
 
     return (
         <Container title="Iniciar Sesión">
+            <Head title="Quizium | Iniciar sesión" />
             <Form
                 action="/login"
                 className="flex flex-col gap-2 mt-3"

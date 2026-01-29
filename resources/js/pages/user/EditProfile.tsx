@@ -8,7 +8,7 @@ import ImageCropper from "@/components/ui/ImageCropper";
 import TextArea from "@/components/ui/TextArea";
 import useProfile from "@/hooks/useProfile";
 import { alertWithRedirect } from "@/utilities/SweetAlert";
-import { usePage } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 
 const EditProfile = (prop: { user: User }) => {
@@ -66,6 +66,7 @@ const EditProfile = (prop: { user: User }) => {
 
     return (
         <div className="bg-white flex-1 md:flex-none md:rounded-2xl p-3 md:p-5 border-neutral-500 border-b-3 md:border-b-4 shadow-2xl w-full md:max-w-[840px]">
+            <Head title="Quizim | Actualizar perfil" />
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

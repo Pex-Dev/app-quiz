@@ -1,12 +1,13 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { Form } from "@inertiajs/react";
+import { Form, Head } from "@inertiajs/react";
 import Container from "../../components/common/Container";
 import TextSuccess from "@/components/common/TextSuccess";
 
 const Notice = () => {
     return (
         <Container title="Verifica tu email">
+            <Head title="Quizim | Verifica tu email" />
             <p className="text-neutral-300 text-sm text-center mt-2">
                 Se ha enviado un enlace de verificación a tu email. Por favor,
                 verifica tu cuenta para continuar.

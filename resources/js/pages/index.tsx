@@ -5,11 +5,13 @@ import QuizCard from "@/components/quiz/QuizCard.js";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import FeatureCard from "@/components/ui/FeatureCard.js";
+import { Head } from "@inertiajs/react";
 
 const Index = (props: { quizzes: Quiz[] }) => {
     const { quizzes } = props;
     return (
         <div className="w-full">
+            <Head title="Quizium" />
             <header className="relative flex flex-col justify-center items-center min-h-[330px] md:min-h-[400px] w-full py-10 px-3 md:px-5">
                 <h2 className="text-white text-center text-4xl md:text-5xl lg:text-7xl font-roboto font-bold text-shadow-md text-shadow-white/40">
                     Crea y completa quizzes

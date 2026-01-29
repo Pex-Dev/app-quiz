@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Results, User } from "@/types/quiz";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import QuizCard from "@/components/quiz/QuizCard";
 
 const Likes = (props: { user: User; results: Results }) => {
@@ -21,6 +21,7 @@ const Likes = (props: { user: User; results: Results }) => {
 
     return (
         <div className="w-full px-3 max-w-[1440px] mx-auto mt-10">
+            <Head title={`Quizim | Me gustas de ${user.name}`} />
             <h2 className="text-xl text-left md:text-xl font-roboto text-white uppercase font-semibold mb-3">
                 {`Me gustas de ${user.name}`}
             </h2>
