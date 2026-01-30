@@ -74,7 +74,7 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
     );
 
     return (
-        <div className="min-w-56 bg-white border-b-5 border-b-neutral-500 rounded-3xl shadow-lg overflow-hidden">
+        <li className="min-w-56 bg-white border-b-5 border-b-neutral-500 rounded-3xl shadow-lg overflow-hidden">
             <header
                 className={`relative min-h-32 w-full  ${
                     quiz.image
@@ -169,6 +169,6 @@ export default function QuizCard({ quiz }: { quiz: Quiz }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </li>
     );
 }
