@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -18,7 +17,7 @@ class AuthController extends Controller
         if(Auth::attempt([
             'email' => $request['email'],
             'password' => $request['password']
-        ])){
+        ],$request->filled('remember'))){
             $authUser = auth() -> user();
             return redirect() -> route("profile",$authUser->name);
         }else{
