@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 const Login = () => {
     const emailId = useId();
     const passwordId = useId();
+    const rememberId = useId();
 
     return (
         <Container title="Iniciar Sesión">
@@ -44,6 +45,17 @@ const Login = () => {
                             />
                         </div>
                         {errors.email && <ErrorText>{errors.email}</ErrorText>}
+                        <div className="flex gap-2 items-center mt-2">
+                            <label htmlFor={rememberId} className="text-white">
+                                Manter sesión Iniciada
+                            </label>
+                            <input
+                                type="checkbox"
+                                name="remember"
+                                id={rememberId}
+                            />
+                        </div>
+
                         <div className="w-full mt-4">
                             <Button type="submit" className={"lg:w-full"}>
                                 Iniciar Sesión
