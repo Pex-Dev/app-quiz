@@ -146,8 +146,8 @@ export default function QuizForm({ title }: { title: string }) {
                                     }
                                     options={visibiltyOptions}
                                 />
-                                {errors.category && (
-                                    <ErrorText>{errors.category}</ErrorText>
+                                {errors.public && (
+                                    <ErrorText>{errors.public}</ErrorText>
                                 )}
                             </div>
                         </div>
