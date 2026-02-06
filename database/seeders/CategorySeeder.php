@@ -59,6 +59,30 @@ class CategorySeeder extends Seeder
             "description" => "Platos típicos, ingredientes, cocina internacional, sabores y curiosidades culinarias."
         ]);
         Category::create([
+            "name" => "Anime y Manga",
+            "description" => "Preguntas sobre anime o manga"
+        ]);
+        Category::create([
+            "name" => "Historia",
+            "description" => "Preguntas sobre hechos historicos."
+        ]);
+        Category::create([
+            "name" => "Arte y Cultura",
+            "description" => "Preguntas sobre obras de arte, autores y cultura."
+        ]);
+        Category::create([
+            "name" => "Misterio y curiosidades",
+            "description" => "Preguntas sobre misterios y curiosidades."
+        ]);
+        Category::create([
+            "name" => "Filosofía y Pensamiento",
+            "description" => "Preguntas sobre filosofía y pensamiento."
+        ]);
+        Category::create([
+            "name" => "Verdadero o Falso",
+            "description" => "Tipicas preguntas sobre si un hecho es verdadero o falso."
+        ]);
+        Category::create([
             "name" => "Otros / Miscelánea",
             "description" => "Preguntas que no encajan del todo en una categoría específica."
         ]);
