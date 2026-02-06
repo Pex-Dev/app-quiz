@@ -25,10 +25,9 @@ class StoreQuizRequest extends FormRequest
         return [
             'name' => 'min:10|max:60',
             'description' => 'nullable|min:10|max:500',
-            'category' => 'numeric|min:1|max:12',
             'image' => 'nullable|string',
             'public' => 'required|boolean',
-            'category' => 'required|numeric|min:1|max:12',
+            'category' => 'required|numeric|min:1|max:18',
             'questions' => 'required|array|min:5',
             'questions.*.question_text' => 'required|min:5|max:150',
             'questions.*.order' => 'required|numeric',
