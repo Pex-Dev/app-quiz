@@ -11,6 +11,12 @@ const backgroundsImages = [
     "/images/backgrounds/tech_pattern.png",
     "/images/backgrounds/food_pattern.png",
     "/images/backgrounds/other_pattern.png",
+    "/images/backgrounds/anime_pattern.png",
+    "/images/backgrounds/history_pattern.png",
+    "/images/backgrounds/flower_pattern.png",
+    "/images/backgrounds/mistery_pattern.png",
+    "/images/backgrounds/brain_pattern.png",
+    "/images/backgrounds/tf_pattern.png",
 ];
 
 export default backgroundsImages;
