@@ -10,7 +10,7 @@ import ButtonDeleteQuiz from "./ButtonDeleteQuiz";
 
 export default function QuizBoard() {
     const [height, setHeight] = useState(0);
-    const { quiz, quizState } = useQuizPlay();
+    const { quiz, quizState, currentQuestionNumber } = useQuizPlay();
     const { props } = usePage();
     const { auth } = props;
 
@@ -21,7 +21,7 @@ export default function QuizBoard() {
         if (contentRef.current) {
             setHeight(contentRef.current.scrollHeight);
         }
-    }, [quizState]);
+    }, [quizState, currentQuestionNumber]);
 
     return (
         <div
