@@ -59,6 +59,12 @@ const Index = (props: { results: Results; searchText: string }) => {
         { label: "Lógica y Adivinanzas", value: "9" },
         { label: "Tecnología", value: "10" },
         { label: "Comida y Gastronomía", value: "11" },
+        { label: "Anime y Manga", value: "13" },
+        { label: "Historia", value: "14" },
+        { label: "Arte y Cultura", value: "15" },
+        { label: "Misterios y Curiosidades", value: "16" },
+        { label: "Filosofía y Pensamiento", value: "17" },
+        { label: "Verdadero o Falso", value: "18" },
         { label: "Otros / Miscelánea", value: "12" },
     ];
 
